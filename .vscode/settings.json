@@ -1,0 +1,11 @@
+{
+  "sqltools.useNodeRuntime": true,
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "SC",
+      "database": "${workspaceFolder:sc-mapping}/data/db/scm.db"
+    }
+  ]
+}
