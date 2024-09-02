@@ -1,13 +1,12 @@
-import Actionmap from '~/pages/actionmap.vue'
 import { actionmap as ActionMapTable } from '~/db/schema'
 
 export default defineEventHandler(async (event) => {
   const { files } = await readBody<{ files: File[] }>(event)
 
   const ufile = await storeFileLocally(
-    files[0],         // the file object
-    12,            // you can add a name for the file or length of Unique ID that will be automatically generated!
-    '/'  // the folder the file will be stored in
+    files[0], // the file object
+    12,       // you can add a name for the file or length of Unique ID that will be automatically generated!
+    '/'       // the folder the file will be stored in
   )
 
   const device = new buildDevices()
@@ -15,7 +14,7 @@ export default defineEventHandler(async (event) => {
   let j: Joystick = {}
 
   doc.forEach(async (am: ActionMap) => {
-    const device_section:string = am._name;
+    const device_section: string = am._name;
 
     for (const idx in am.action) {
       const action: Action = am.action[idx];
@@ -27,12 +26,13 @@ export default defineEventHandler(async (event) => {
         const device_name: string = input[0]
         input.shift()
         const device_input: string = input.join(' ')
-        
+
         const actionmap = await useDrizzle().insert(ActionMapTable).values({
           device: device_name,
           section: device_action,
           button: device_input,
-          action: device_section
+          action: device_section,
+          profile: ufile
         }).returning().get()
 
         console.log(actionmap)
