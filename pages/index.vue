@@ -4,10 +4,6 @@
     
 
     <p>{{ approveUpload }}</p>
-    <div class="links">
-      <a v-for="link in fileLinks" :key="link" :href="`/userFiles/specificFolder/${link}`">{{ link }}</a>
-    </div>
-
 
     <div>
       <input type="file" @input="handleFileInput" />
@@ -18,7 +14,6 @@
 </template>
 <script setup lang="ts">
 const { handleFileInput, files } = useFileStorage()
-const fileLinks = ref<string[]>([])
 const approveUpload = ref('')
 
 const submit = async () => {
@@ -29,8 +24,9 @@ const submit = async () => {
     }
   })
 
-  if (!response) return
+  if (!response) 
+    return
+
   approveUpload.value = 'File caricato!'
-  fileLinks.value = response
 }
 </script>

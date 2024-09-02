@@ -1,40 +1,3 @@
-class buildDevices {
-  output: { [k: string] : Array<string|Array<string>> } = {}
-
-  constructor() {
-    console.log('Initialized');
-  }
-
-  addDevice(name: string): void {
-    this.output[name] = new Array()
-  }
-
-  /**
-   * Esista già la proprietà per il device
-   * 
-   * @param name 
-   * @returns 
-   */
-  hasDevice(name: string): boolean {
-    if(this.output[name])
-      return true
-
-    return false
-  }
-
-  addinput(name: string, input: Array<string>|string) {
-    if(!this.hasDevice(name))
-      this.addDevice(name)
-
-    if(typeof input === 'object') {
-      console.log(input.length)
-    } else if(input !== '') {
-      this.output[name].push(input)
-    }
-  }
-}
-
-
 export default defineEventHandler(async (event) => {
   type ActionMap = {
     _name: string, 
@@ -56,7 +19,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const device = new buildDevices()
-  const doc = parseXml('actionmap')
+  const doc = parseXml('t1.xml', 'actionmap')
   let j: Joystick = {}
 
   doc.forEach((am: ActionMap) => {
