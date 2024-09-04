@@ -10,9 +10,15 @@
 
       <button @click="submit">Upload</button>
     </div>
+
+    <ul class="" v-for="profile in profiles">
+      <li class="text-xl text-red-800"><NuxtLink :to="{ name: 'profiles-name', params: { name: profile.profile } }">{{ profile.profile }}</NuxtLink></li>
+    </ul>
   </div>
 </template>
 <script setup lang="ts">
+const { data: profiles, status } = await useLazyFetch('/api/profiles');
+
 const { handleFileInput, files } = useFileStorage()
 const approveUpload = ref('')
 

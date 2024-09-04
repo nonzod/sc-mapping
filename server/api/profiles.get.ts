@@ -1,3 +1,4 @@
+import { isNotNull } from 'drizzle-orm';
 import { actionmap as ActionMapTable } from '~/db/schema'
 
 export default defineEventHandler(async (event) => {
@@ -8,6 +9,7 @@ export default defineEventHandler(async (event) => {
         profile: ActionMapTable.profile
       })
       .from(ActionMapTable)
+      .where(isNotNull(ActionMapTable.profile))
       .groupBy(ActionMapTable.profile);
     return actionmapResp;
   } catch (e: any) {
