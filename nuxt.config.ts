@@ -5,7 +5,8 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-fonts',
-    'nuxt-file-storage'
+    'nuxt-file-storage',
+    '@nuxt/image',
   ],
   tailwindcss: {
     configPath: 'tailwind.config',

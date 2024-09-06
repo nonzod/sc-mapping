@@ -4,10 +4,12 @@
     Loading ...
   </div>
   <div class="" v-else>
-    <FlightStick :items="items"></FlightStick>
-    <!--<div class="" v-for="(item, idx) in items">
-      <p class="text-xl"><span class="text-red-800">{{ item.section }}</span> : {{ item.action }} : <span class="text-red-800">{{ item.button }}</span></p>
-    </div>-->
+    <div class="flex">
+      <FlightStick :items="items" device="js1" class="w-1/2"></FlightStick>
+    
+      <FlightStick :items="items" device="js2" class="w-1/2"></FlightStick>
+    </div>
+    
   </div>
 </template>
 <script setup lang="ts">

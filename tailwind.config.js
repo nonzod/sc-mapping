@@ -2,8 +2,8 @@
 export default {
   content: [
     '/layouts/**/*.vue',
-    '/pages/**/*.{vue}',
-    '/components/**/*.{vue}',
+    '/pages/**/*.vue',
+    '/components/**/*.vue',
   ],
   theme: {
     screens: {
