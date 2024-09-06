@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
 
     const actionmapResp = useDrizzle()
       .select({
-        profile: ActionMapTable.profile
+        name: ActionMapTable.profile
       })
       .from(ActionMapTable)
       .where(isNotNull(ActionMapTable.profile))

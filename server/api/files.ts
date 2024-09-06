@@ -26,16 +26,16 @@ export default defineEventHandler(async (event) => {
         const device_name: string = input[0]
         input.shift()
         const device_input: string = input.join(' ')
-
-        const actionmap = await useDrizzle().insert(ActionMapTable).values({
-          device: device_name,
-          section: device_action,
-          button: device_input,
-          action: device_section,
-          profile: ufile
-        }).returning().get()
-
-        console.log(actionmap)
+        
+        if (device_input !== '') {
+          const actionmap = await useDrizzle().insert(ActionMapTable).values({
+            device: device_name,
+            section: device_section,
+            button: device_input,
+            action: device_action,
+            profile: ufile
+          }).returning().get()
+        }
       }
     }
   })
