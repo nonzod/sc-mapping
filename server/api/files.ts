@@ -4,6 +4,8 @@ import { existsSync, mkdirSync } from 'fs';
 
 export default defineEventHandler(async (event) => {
   const { files } = await readBody<{ files: File[] }>(event)
+
+  // Questa roba è da migliorare...
   const today = new Date()
   const objpath:any = {
     year: today.getFullYear(),
@@ -11,7 +13,6 @@ export default defineEventHandler(async (event) => {
     day: today.getDate()
   }
 
-  // Questa roba è da migliorare...
   if(!existsSync(`./data/${objpath.year}`)) {
     mkdirSync(`./data/${objpath.year}`)
   }
@@ -23,24 +24,25 @@ export default defineEventHandler(async (event) => {
   }
 
   const basepath: string = `${objpath.year}/${objpath.month}/${objpath.day}/`
+  // --
+
   const ufile = await storeFileLocally(
-    files[0], // the file object
-    12,       // you can add a name for the file or length of Unique ID that will be automatically generated!
+    files[0],           // the file object
+    12,                 // you can add a name for the file or length of Unique ID that will be automatically generated!
     `/${basepath}`      // the folder the file will be stored in
   )
 
   const uuid: string = uuidv4(); 
   const { profile, actionmap } = parseXml(`${basepath}${ufile}`, 'actionmap')
-  let j: Joystick = {}
 
-  const res_profile = await useDrizzle().insert(ProfileTable).values({
+  useDrizzle().insert(ProfileTable).values({
     uuid: uuid,
     name: profile.profileName,
     version: profile.version,
     rebind_version: profile.rebindVersion,
     options_version: profile.optionsVersion,
     filepath: `${basepath}${ufile}`
-  }).returning().get()
+  }).run()
 
   actionmap.forEach(async (am: ActionMap) => {
     const device_section: string = am._name;
@@ -57,13 +59,13 @@ export default defineEventHandler(async (event) => {
         const device_input: string = input.join(' ')
         
         if (device_input !== '') {
-          const res_actionmap = await useDrizzle().insert(ActionMapTable).values({
+          useDrizzle().insert(ActionMapTable).values({
             device: device_name,
             section: device_section,
             button: device_input,
             action: device_action,
             profile: uuid
-          }).returning().get()
+          }).run()
         }
       }
     }
@@ -71,11 +73,6 @@ export default defineEventHandler(async (event) => {
 
   return true
 })
-
-interface File {
-  name: string
-  content: string
-}
 
 type ActionMap = {
   _name: string,
@@ -89,9 +86,4 @@ type Action = {
 
 type Rebind = {
   _input: string
-}
-
-// Una sorta di array associativo con oggetti
-type Joystick = {
-  [k: string]: Array<string | Array<string>>
 }
