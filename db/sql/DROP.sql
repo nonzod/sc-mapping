@@ -1,1 +1,2 @@
-DROP TABLE actionmap
+DELETE FROM actionmap;
+DELETE FROM profile;

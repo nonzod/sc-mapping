@@ -1,18 +1,37 @@
 import { actionmap as ActionMapTable, profile as ProfileTable } from '~/db/schema'
 import { v4 as uuidv4 } from 'uuid';
+import { existsSync, mkdirSync } from 'fs';
+import nuxtConfig from '~/nuxt.config';
 
 export default defineEventHandler(async (event) => {
   const { files } = await readBody<{ files: File[] }>(event)
+  const today = new Date()
+  const objpath:any = {
+    year: today.getFullYear(),
+    month: today.getMonth(),
+    day: today.getDate()
+  }
 
+  if(!existsSync(`./data/${objpath.year}`)) {
+    mkdirSync(`./data/${objpath.year}`)
+  }
+  if(!existsSync(`./data/${objpath.year}/${objpath.month}`)) {
+    mkdirSync(`./data/${objpath.year}/${objpath.month}`)
+  }
+  if(!existsSync(`./data/${objpath.year}/${objpath.month}/${objpath.day}`)) {
+    mkdirSync(`./data/${objpath.year}/${objpath.month}/${objpath.day}`)
+  }
+
+  const basepath: string = `${objpath.year}/${objpath.month}/${objpath.day}/`
   const ufile = await storeFileLocally(
     files[0], // the file object
     12,       // you can add a name for the file or length of Unique ID that will be automatically generated!
-    '/'       // the folder the file will be stored in
+    `/${basepath}`      // the folder the file will be stored in
   )
 
   const uuid: string = uuidv4(); 
   const device = new buildDevices()
-  const { profile, actionmap } = parseXml(ufile, 'actionmap')
+  const { profile, actionmap } = parseXml(`${basepath}${ufile}`, 'actionmap')
   let j: Joystick = {}
 
   const res_profile = await useDrizzle().insert(ProfileTable).values({
@@ -20,7 +39,8 @@ export default defineEventHandler(async (event) => {
     name: profile.profileName,
     version: profile.version,
     rebind_version: profile.rebindVersion,
-    options_version: profile.optionsVersion
+    options_version: profile.optionsVersion,
+    filepath: `${basepath}${ufile}`
   }).returning().get()
 
   actionmap.forEach(async (am: ActionMap) => {

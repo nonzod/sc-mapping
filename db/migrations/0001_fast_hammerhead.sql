@@ -1,0 +1,1 @@
+ALTER TABLE `actionmap` ADD `filepath` text;

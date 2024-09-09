@@ -1,5 +1,4 @@
-import { isNotNull } from 'drizzle-orm';
-import { actionmap as ActionMapTable, profile as ProfileTable } from '~/db/schema'
+import { profile as ProfileTable } from '~/db/schema'
 
 export default defineEventHandler(async (event) => {
   try {

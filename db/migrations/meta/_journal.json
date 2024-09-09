@@ -8,6 +8,20 @@
       "when": 1725869873500,
       "tag": "0000_solid_kinsey_walden",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1725873231171,
+      "tag": "0001_fast_hammerhead",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1725873267614,
+      "tag": "0002_dazzling_gorgon",
+      "breakpoints": true
     }
   ]
 }

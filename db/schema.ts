@@ -16,5 +16,6 @@ export const profile = sqliteTable('profile', {
   version: integer('version'),
   rebind_version: integer('rebind_version'),
   options_version: integer('options_version'),
+  filepath: text('filepath')
 }, (profile) => ({})
 );
