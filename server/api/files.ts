@@ -1,7 +1,6 @@
 import { actionmap as ActionMapTable, profile as ProfileTable } from '~/db/schema'
 import { v4 as uuidv4 } from 'uuid';
 import { existsSync, mkdirSync } from 'fs';
-import nuxtConfig from '~/nuxt.config';
 
 export default defineEventHandler(async (event) => {
   const { files } = await readBody<{ files: File[] }>(event)
@@ -12,6 +11,7 @@ export default defineEventHandler(async (event) => {
     day: today.getDate()
   }
 
+  // Questa roba è da migliorare...
   if(!existsSync(`./data/${objpath.year}`)) {
     mkdirSync(`./data/${objpath.year}`)
   }
@@ -30,7 +30,6 @@ export default defineEventHandler(async (event) => {
   )
 
   const uuid: string = uuidv4(); 
-  const device = new buildDevices()
   const { profile, actionmap } = parseXml(`${basepath}${ufile}`, 'actionmap')
   let j: Joystick = {}
 
