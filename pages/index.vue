@@ -11,8 +11,10 @@
     </div>
 
     <ul class="" v-for="profile in profiles">
-      <li class="text-xl text-red-800">
-        <NuxtLink :to="{ name: 'profiles-uuid', params: { uuid: profile.uuid } }">{{ profile.name }} - v{{ profile.version }}</NuxtLink> <NuxtLink :to="`/api/files/${profile.uuid}`" target="_blank" class="text-xs" external>XML</NuxtLink> 
+      <li class="text-xl">
+        <button @click="deleteProfile(profile.uuid)" class="text-xs text-red-800">DEL</button> 
+        <NuxtLink :to="{ name: 'profiles-uuid', params: { uuid: profile.uuid } }">{{ profile.name }} - v{{ profile.version }}</NuxtLink>
+        <NuxtLink :to="`/api/files/${profile.uuid}`" target="_blank" class="text-xs text-green-800" external>XML</NuxtLink> 
       </li>
     </ul>
   </div>
@@ -40,4 +42,14 @@ const submit = async () => {
 
 }
 
+const deleteProfile = async (uuid: string) => {
+  const response = await $fetch('/api/profiles/delete/' + uuid, {
+    method: 'GET',
+  })
+
+  if (!response)
+    return
+
+  approveUpload.value = 'Profilo eliminato!'
+}
 </script>
