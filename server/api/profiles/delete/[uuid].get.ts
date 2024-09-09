@@ -23,7 +23,11 @@ export default defineEventHandler(async (event) => {
 
     rmSync(`${process.cwd()}/data/${res_profile[0].filepath}`)
 
-    return true
+    return {
+      profile: res_profile[0].name,
+      uuid: res_profile[0].uuid
+    }
+    
   } catch (e: any) {
     throw createError({
       statusCode: 400,

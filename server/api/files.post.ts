@@ -75,7 +75,10 @@ export default defineEventHandler(async (event) => {
     }
   })
 
-  return true
+  return {
+    profile: profile.profileName,
+    uuid: uuid
+  }
 })
 
 type ActionMap = {

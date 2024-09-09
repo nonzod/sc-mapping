@@ -28,7 +28,7 @@ const { data: profiles } = await useFetch('/api/profiles', {
 })
 
 const submit = async () => {
-  const response = await $fetch('/api/files', {
+  const response: any = await $fetch('/api/files', {
     method: 'POST',
     body: {
       files: files.value
@@ -38,18 +38,18 @@ const submit = async () => {
   if (!response)
     return
 
-  approveUpload.value = 'File caricato!'
+  approveUpload.value = `${response.profile} (${response.uuid}) Creato!`
 
 }
 
 const deleteProfile = async (uuid: string) => {
-  const response = await $fetch('/api/profiles/delete/' + uuid, {
+  const response: any = await $fetch('/api/profiles/delete/' + uuid, {
     method: 'GET',
   })
 
   if (!response)
     return
 
-  approveUpload.value = 'Profilo eliminato!'
+  approveUpload.value = `${response.profile} (${response.uuid}) Eliminato!`
 }
 </script>
