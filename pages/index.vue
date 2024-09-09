@@ -2,7 +2,6 @@
   <div>
     <h1>Star Citizen</h1>
 
-
     <p>{{ approveUpload }}</p>
 
     <div>
@@ -13,7 +12,7 @@
 
     <ul class="" v-for="profile in profiles">
       <li class="text-xl text-red-800">
-        <NuxtLink :to="{ name: 'profiles-uuid', params: { uuid: profile.uuid } }">{{ profile.name }} (v{{ profile.version }})</NuxtLink>
+        <NuxtLink :to="{ name: 'profiles-uuid', params: { uuid: profile.uuid } }">{{ profile.name }} - v{{ profile.version }}</NuxtLink> <NuxtLink :to="`/api/files/${profile.uuid}`" target="_blank" class="text-xs" external>XML</NuxtLink> 
       </li>
     </ul>
   </div>

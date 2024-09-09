@@ -7,7 +7,8 @@ export default defineEventHandler(async (event) => {
       .select({
         uuid: ProfileTable.uuid,
         name: ProfileTable.name,
-        version: ProfileTable.version
+        version: ProfileTable.version,
+        filepath: ProfileTable.filepath
       })
       .from(ProfileTable)
     return res_profiles;

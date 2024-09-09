@@ -24,6 +24,6 @@ export default defineNuxtConfig({
     }
   },
   fileStorage: {
-    mount: './data',
+    mount: './data/xml',
   },
 })

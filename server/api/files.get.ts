@@ -8,19 +8,23 @@ export default defineEventHandler(async (event) => {
   // Questa roba è da migliorare...
   const today = new Date()
   const objpath:any = {
+    mount: './data/xml',
     year: today.getFullYear(),
     month: today.getMonth(),
     day: today.getDate()
   }
 
-  if(!existsSync(`./data/${objpath.year}`)) {
-    mkdirSync(`./data/${objpath.year}`)
+  if(!existsSync(objpath.mount)) {
+    mkdirSync(objpath.mount)
   }
-  if(!existsSync(`./data/${objpath.year}/${objpath.month}`)) {
-    mkdirSync(`./data/${objpath.year}/${objpath.month}`)
+  if(!existsSync(`${objpath.mount}/${objpath.year}`)) {
+    mkdirSync(`${objpath.mount}/${objpath.year}`)
   }
-  if(!existsSync(`./data/${objpath.year}/${objpath.month}/${objpath.day}`)) {
-    mkdirSync(`./data/${objpath.year}/${objpath.month}/${objpath.day}`)
+  if(!existsSync(`${objpath.mount}/${objpath.year}/${objpath.month}`)) {
+    mkdirSync(`${objpath.mount}/${objpath.year}/${objpath.month}`)
+  }
+  if(!existsSync(`${objpath.mount}/${objpath.year}/${objpath.month}/${objpath.day}`)) {
+    mkdirSync(`${objpath.mount}/${objpath.year}/${objpath.month}/${objpath.day}`)
   }
 
   const basepath: string = `${objpath.year}/${objpath.month}/${objpath.day}/`
@@ -33,7 +37,7 @@ export default defineEventHandler(async (event) => {
   )
 
   const uuid: string = uuidv4(); 
-  const { profile, actionmap } = parseXml(`${basepath}${ufile}`, 'actionmap')
+  const { profile, actionmap } = parseXml(`${objpath.mount}/${basepath}${ufile}`, 'actionmap')
 
   useDrizzle().insert(ProfileTable).values({
     uuid: uuid,
@@ -41,7 +45,7 @@ export default defineEventHandler(async (event) => {
     version: profile.version,
     rebind_version: profile.rebindVersion,
     options_version: profile.optionsVersion,
-    filepath: `${basepath}${ufile}`
+    filepath: `xml/${basepath}${ufile}`
   }).run()
 
   actionmap.forEach(async (am: ActionMap) => {
