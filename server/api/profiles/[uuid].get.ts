@@ -3,11 +3,11 @@ import { eq } from "drizzle-orm";
 
 export default defineEventHandler(async (event) => {
   try {
-    const profile_name = event.context.params?.name as string;
+    const profile_uuid = event.context.params?.uuid as string;
     const actionmapResp = useDrizzle()
       .select()
       .from(ActionMapTable)
-      .where(eq(ActionMapTable.profile, profile_name))
+      .where(eq(ActionMapTable.profile, profile_uuid))
       .orderBy(ActionMapTable.device, ActionMapTable.button)
     return actionmapResp;
   } catch (e: any) {

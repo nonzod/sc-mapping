@@ -1,4 +1,5 @@
-import { actionmap as ActionMapTable } from '~/db/schema'
+import { actionmap as ActionMapTable, profile as ProfileTable } from '~/db/schema'
+import { v4 as uuidv4 } from 'uuid';
 
 export default defineEventHandler(async (event) => {
   const { files } = await readBody<{ files: File[] }>(event)
@@ -9,11 +10,20 @@ export default defineEventHandler(async (event) => {
     '/'       // the folder the file will be stored in
   )
 
+  const uuid: string = uuidv4(); 
   const device = new buildDevices()
-  const doc = parseXml(ufile, 'actionmap')
+  const { profile, actionmap } = parseXml(ufile, 'actionmap')
   let j: Joystick = {}
 
-  doc.forEach(async (am: ActionMap) => {
+  const res_profile = await useDrizzle().insert(ProfileTable).values({
+    uuid: uuid,
+    name: profile.profileName,
+    version: profile.version,
+    rebind_version: profile.rebindVersion,
+    options_version: profile.optionsVersion
+  }).returning().get()
+
+  actionmap.forEach(async (am: ActionMap) => {
     const device_section: string = am._name;
 
     for (const idx in am.action) {
@@ -28,12 +38,12 @@ export default defineEventHandler(async (event) => {
         const device_input: string = input.join(' ')
         
         if (device_input !== '') {
-          const actionmap = await useDrizzle().insert(ActionMapTable).values({
+          const res_actionmap = await useDrizzle().insert(ActionMapTable).values({
             device: device_name,
             section: device_section,
             button: device_input,
             action: device_action,
-            profile: ufile
+            profile: uuid
           }).returning().get()
         }
       }

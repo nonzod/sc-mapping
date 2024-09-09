@@ -14,5 +14,5 @@
 </template>
 <script setup lang="ts">
   const route = useRoute()
-  const { data: items, status } = await useLazyFetch(`/api/profiles/${route.params.name}`);
+  const { data: items, status } = await useLazyFetch(`/api/profiles/${route.params.uuid}`);
 </script>

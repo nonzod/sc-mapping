@@ -1,1 +1,0 @@
-ALTER TABLE `actionmap` ADD `profile` text;

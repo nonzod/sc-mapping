@@ -1,17 +1,17 @@
 import { isNotNull } from 'drizzle-orm';
-import { actionmap as ActionMapTable } from '~/db/schema'
+import { actionmap as ActionMapTable, profile as ProfileTable } from '~/db/schema'
 
 export default defineEventHandler(async (event) => {
   try {
 
-    const actionmapResp = useDrizzle()
+    const res_profiles = useDrizzle()
       .select({
-        name: ActionMapTable.profile
+        uuid: ProfileTable.uuid,
+        name: ProfileTable.name,
+        version: ProfileTable.version
       })
-      .from(ActionMapTable)
-      .where(isNotNull(ActionMapTable.profile))
-      .groupBy(ActionMapTable.profile);
-    return actionmapResp;
+      .from(ProfileTable)
+    return res_profiles;
   } catch (e: any) {
     throw createError({
       statusCode: 400,

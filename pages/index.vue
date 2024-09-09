@@ -13,7 +13,7 @@
 
     <ul class="" v-for="profile in profiles">
       <li class="text-xl text-red-800">
-        <NuxtLink :to="{ name: 'profiles-name', params: { name: profile.name } }">{{ profile.name }}</NuxtLink>
+        <NuxtLink :to="{ name: 'profiles-uuid', params: { uuid: profile.uuid } }">{{ profile.name }} (v{{ profile.version }})</NuxtLink>
       </li>
     </ul>
   </div>

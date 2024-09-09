@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "9f5c0cc7-2f4f-4acf-9bfc-001bc085ade1",
+  "id": "41cfd0dd-4ff3-4974-9cc1-909d31fde101",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "actionmap": {
@@ -12,6 +12,13 @@
           "type": "integer",
           "primaryKey": true,
           "notNull": true,
+          "autoincrement": false
+        },
+        "profile": {
+          "name": "profile",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         },
         "device": {
@@ -38,6 +45,64 @@
         "action": {
           "name": "action",
           "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "actionmap_profile_profile_uuid_fk": {
+          "name": "actionmap_profile_profile_uuid_fk",
+          "tableFrom": "actionmap",
+          "tableTo": "profile",
+          "columnsFrom": [
+            "profile"
+          ],
+          "columnsTo": [
+            "uuid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "profile": {
+      "name": "profile",
+      "columns": {
+        "uuid": {
+          "name": "uuid",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "rebind_version": {
+          "name": "rebind_version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "options_version": {
+          "name": "options_version",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false

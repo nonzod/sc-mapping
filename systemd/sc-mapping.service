@@ -1,0 +1,16 @@
+[Unit]
+Description=Star Citizen controls mapping
+Documentation=https://sc.nicolatomassoni.it
+After=network.target
+
+[Service]
+Environment=NODE_PORT=3000
+Environment=NODE_VERSION=22
+Type=simple
+User=nodejs
+WorkingDirectory=/path/to/sc-mapping
+ExecStart=/path/to/.nvm/nvm-exec node ./server/index.mjs
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
