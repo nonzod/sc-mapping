@@ -1,5 +1,8 @@
 <template>
-  <span>
+  <div class="alert" :class="type" role="alert">
     <slot />
-  </span>
+  </div>
 </template>
+<script setup lang="ts">
+  defineProps(['type'])
+</script>

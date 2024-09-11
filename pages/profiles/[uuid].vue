@@ -5,9 +5,8 @@
   </div>
   <div class="" v-else>
     <div class="flex">
-      <FlightStick :items="items" device="js1" class="w-1/2"></FlightStick>
-    
-      <FlightStick :items="items" device="js2" class="w-1/2"></FlightStick>
+      <component :is="DeviceType" :items="items" device="js1" inverted="true" class="w-1/2" />
+      <component :is="DeviceType" :items="items" device="js2" inverted="true" class="w-1/2" />
     </div>
     
   </div>
@@ -15,4 +14,8 @@
 <script setup lang="ts">
   const route = useRoute()
   const { data: items, status } = await useLazyFetch(`/api/profiles/${route.params.uuid}`);
+
+  const DeviceType = defineAsyncComponent(() =>
+    import('../../components/FlightStick.vue')
+  )
 </script>

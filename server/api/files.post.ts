@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { existsSync, mkdirSync } from 'fs';
 
 export default defineEventHandler(async (event) => {
-  const { files } = await readBody<{ files: File[] }>(event)
+  const { files, device_type, num_of_devices } = await readBody<{ files: File[], device_type: string, num_of_devices: number }>(event)
 
   // Questa roba è da migliorare...
   const today = new Date()
@@ -42,6 +42,8 @@ export default defineEventHandler(async (event) => {
   useDrizzle().insert(ProfileTable).values({
     uuid: uuid,
     name: profile.profileName,
+    device_type: device_type,
+    num_of_devices: num_of_devices,
     version: profile.version,
     rebind_version: profile.rebindVersion,
     options_version: profile.optionsVersion,

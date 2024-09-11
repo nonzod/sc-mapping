@@ -1,8 +1,10 @@
 <template>
   <div>
-    <h2 class="font-bold">DEVICE: {{ device }}</h2>
+    <h2>Turtlebeach Velocity One Fightstick</h2>
+    <p class="text-xs"><i>Slider 1</i> viene mappato su StarCitizen come <i>rotz</i></p>
+    <h3 class="font-bold">DEVICE: {{ device }}</h3>
 
-    <h3 class="font-semibold">AXIS</h3>
+    <h4 class="font-semibold">AXIS</h4>
     <ul class="">
       <JoyAction label="X" :action="button('x')" />
       <JoyAction label="Y" :action="button('y')" />
@@ -11,7 +13,7 @@
 
     <div class="flex mt-2">
       <div class="">
-        <h3 class="font-semibold">HAT 1</h3>
+        <h4 class="font-semibold">HAT 1</h4>
         <ul class="">
           <JoyAction label="UP" :action="button('hat1 up')" />
           <JoyAction label="LEFT" :action="button('hat1 left')" />
@@ -20,7 +22,7 @@
         </ul>
       </div>
       <div class="">
-        <h3 class="font-semibold">ROT</h3>
+        <h4 class="font-semibold">ROT</h4>
         <ul class="">
           <JoyAction label="X" :action="button('rotx')" />
           <JoyAction label="Y" :action="button('roty')" />
@@ -30,16 +32,16 @@
     </div>
 
     <div class="flex mt-2">
-      <div class="w-1/2">
-        <h3 class="font-semibold">SLIDER SX</h3>
+      <div class="w-1/2" :class="invertedClass()">
+        <h4 class="font-semibold">SLIDER 1</h4>
         <ul>
           <JoyAction :label="labels[9]" :action="button('button9')" />
-          <JoyAction label="Slider" :action="button('slider1')" />
+          <JoyAction label="Slider" :action="button('rotz')" />
           <JoyAction :label="labels[10]" :action="button('button10')" />
         </ul>
       </div>
       <div class="w-1/2">
-        <h3 class="font-semibold">SLIDER DX</h3>
+        <h4 class="font-semibold">SLIDER 2</h4>
         <ul>
           <JoyAction :label="labels[11]" :action="button('button11')" />
           <JoyAction label="Slider" :action="button('slider2')" />
@@ -49,22 +51,22 @@
     </div>
 
     <div class="flex mt-2">
-      <div class="w-1/2">
-        <h3 class="font-semibold">FACE BUTTONS SX</h3>
+      <div class="w-1/2" :class="invertedClass()">
+        <h4 class="font-semibold">FACE BUTTONS 1</h4>
         <ul v-for="n in 4">
           <JoyAction :label="`B${n}`" :action="button(`button${n}`)" />
         </ul>
       </div>
       <div class="w-1/2">
-        <h3 class="font-semibold">FACE BUTTONS DX</h3>
+        <h4 class="font-semibold">FACE BUTTONS 2</h4>
         <ul v-for="n in 4">
-          <JoyAction :label="`B${n}`" :action="button(`button${n + 4}`)" />
+          <JoyAction :label="`B${n + 4}`" :action="button(`button${n + 4}`)" />
         </ul>
       </div>
     </div>
 
     <div class="mt-2">
-      <h3 class="font-semibold">BUTTONS</h3>
+      <h4 class="font-semibold">BUTTONS</h4>
       <ul v-for="n in 11">
         <JoyAction :label="labels[n + 12]" :action="button(`button${n + 12}`)" />
       </ul>
@@ -75,7 +77,7 @@
 <script setup lang="ts">
 import type { ActionMapDbRow } from '~/server/utils/types';
 
-const props = defineProps(['items', 'device'])
+const props = defineProps(['items', 'device', 'inverted'])
 const labels: any = {
   1: '',
   2: '',
@@ -116,5 +118,10 @@ const button = function (name: string): string {
   }
 
   return 'none'
+}
+
+const invertedClass = function() {
+  if(props.inverted)
+    return 'order-1'
 }
 </script>

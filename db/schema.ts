@@ -13,6 +13,8 @@ export const actionmap = sqliteTable('actionmap', {
 export const profile = sqliteTable('profile', {
   uuid: text('uuid').primaryKey({ autoIncrement: false }),
   name: text('name'),
+  device_type: text('device_type'),
+  num_of_devices: integer('num_of_devices'),
   version: integer('version'),
   rebind_version: integer('rebind_version'),
   options_version: integer('options_version'),
