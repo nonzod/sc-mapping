@@ -5,8 +5,7 @@
       <Field name="file_xml" v-slot="{ handleChange, handleBlur }">
         <input type="file" @change="handleChange" @blur="handleBlur" @input="handleFileInput" />
       </Field>
-
-      <ErrorMessage name="file_xml" />
+      <ErrorMessage name="file_xml" class="mt-2 text-sm text-red-600 dark:text-red-500" />
     </div>
     <div class="mb-5">
       <label class="select" for="device-type">Tipo di dispositivo</label>
@@ -15,13 +14,27 @@
         <option :value="device_type.name" v-for="device_type in appConfig.supported_devices.types">{{
           device_type.label }}</option>
       </Field>
-      <ErrorMessage name="device_type" />
+      <ErrorMessage name="device_type" class="mt-2 text-sm text-red-600 dark:text-red-500" />
     </div>
     <div class="mb-5">
-      <label class="input" for="device-type">Numero di dispositivi</label>
-      <Field name="num_of_devices" type="radio" value="1" /> 1
-      <Field name="num_of_devices" type="radio" value="2" /> 2
-      <ErrorMessage name="num_of_devices" />
+      <fieldset>
+        <legend class="sr-only">Numero dispositivi</legend>
+        <div class="flex items-center mb-4">
+          <Field name="num_of_devices" id="value-1" type="radio" value="1"
+            class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
+          <label for="value-1" class="block ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Singolo device
+          </label>
+        </div>
+        <div class="flex items-center mb-4">
+          <Field name="num_of_devices" id="value-2" type="radio" value="2"
+            class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
+          <label for="value-2" class="block ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Doppio device
+          </label>
+        </div>
+        <ErrorMessage name="num_of_devices" class="mt-2 text-sm text-red-600 dark:text-red-500" />
+      </fieldset>
     </div>
     <button type="submit" class="btn-1">Upload</button>
   </Form>
@@ -39,7 +52,7 @@ const validation_schema = {
       return true;
     }
 
-    return 'Indica il numero di device configurati 1 o 2';
+    return 'Indica il numero di device configurati, singolo o doppio';
   },
   device_type: (value: string) => {
     if (value)
