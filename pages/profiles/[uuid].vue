@@ -16,6 +16,6 @@ const { data: profile } = await useLazyFetch(`/api/profiles/${route.params.uuid}
 const { data: items, status } = await useLazyFetch(`/api/profiles/binding/${route.params.uuid}`);
 
 const DeviceType = defineAsyncComponent(() =>
-  import(`../../components/${profile.value[0].device_type}.vue`)
+  import(`../../components/Devices/${profile.value[0].device_type}.vue`)
 )
 </script>
