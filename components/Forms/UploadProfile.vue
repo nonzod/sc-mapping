@@ -1,5 +1,5 @@
 <template>
-  <Form class="max-w-sm mx-auto" v-slot="{ values }" :validation-schema="validation_schema" @submit="onSubmit">
+  <Form class="lg:w-1/2 sm:w-full" v-slot="{ values }" :validation-schema="validation_schema" @submit="onSubmit">
     <div class="mb-5">
       <label class="input" for="device-type">File XML</label>
       <Field name="file_xml" v-slot="{ handleChange, handleBlur }">
@@ -33,7 +33,7 @@
             Doppio device
           </label>
         </div>
-        <ErrorMessage name="num_of_devices" class="mt-2 text-sm text-red-600 dark:text-red-500" />
+        <ErrorMessage name="num_of_devices" class="text-sm text-red-600 dark:text-red-500" />
       </fieldset>
     </div>
     <button type="submit" class="btn-1">Upload</button>

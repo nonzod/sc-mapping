@@ -41,7 +41,9 @@
 
 </template>
 <script setup lang="ts">
-const mode_class = ref('')
+import appConfig from '~/app.config';
+
+const mode_class = ref(appConfig.default_theme)
 
 useHead({
   bodyAttrs: {
