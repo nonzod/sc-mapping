@@ -8,7 +8,8 @@ export default defineEventHandler(async (event) => {
         uuid: ProfileTable.uuid,
         name: ProfileTable.name,
         version: ProfileTable.version,
-        filepath: ProfileTable.filepath
+        filepath: ProfileTable.filepath,
+        device_type: ProfileTable.device_type
       })
       .from(ProfileTable)
     return res_profiles;

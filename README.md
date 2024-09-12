@@ -3,7 +3,7 @@
 Personalizza e rinomina env in .env
 
 TODO:
-
+ * Gestire la visualizzazione degli errori quando non va  buon fine qualcosa nelle API
  * Gestione account utente
 
 ## Nuxt 3 Minimal Starter

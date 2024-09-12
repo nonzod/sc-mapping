@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
       .where(eq(ProfileTable.uuid, profile_uuid))
       .run()
 
-    rmSync(`${process.cwd()}/data/${res_profile[0].filepath}`)
+    rmSync(`${process.cwd()}/${process.env.PATH_XML}/${res_profile[0].filepath}`)
 
     return {
       profile: res_profile[0].name,
