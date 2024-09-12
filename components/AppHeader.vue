@@ -19,10 +19,17 @@
         <ul
           class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
           <li>
-            <NuxtLink to="/" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Home</NuxtLink>
+            <NuxtLink to="/"
+              class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+              Home</NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/about" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</NuxtLink>
+            <NuxtLink to="/about"
+              class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+              About</NuxtLink>
+          </li>
+          <li>
+            <a href="#" @click="toggleDarkMode">{{ mode_label }}</a>
           </li>
         </ul>
       </div>
@@ -31,6 +38,25 @@
 
 </template>
 <script setup lang="ts">
-import { getData, setData } from 'nuxt-storage/local-storage';
+const mode_class = ref('')
+const mode_label = ref('Dark mode')
 
+useHead({
+  bodyAttrs: {
+    class: "dark:bg-gray-800"
+  },
+  htmlAttrs: {
+    class: mode_class,
+  },
+});
+
+function toggleDarkMode() {
+  if (mode_class.value == 'dark') {
+    mode_class.value = ''
+    mode_label.value = 'Dark mode'
+  } else {
+    mode_class.value = 'dark'
+    mode_label.value = 'Light mode'
+  }
+}
 </script>
