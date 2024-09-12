@@ -12,21 +12,32 @@
       <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
           <th scope="col" class="px-6 py-3">
-            Dettaglio
+            Tipo
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Profilo
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Versione
           </th>
           <th scope="col" class="px-6 py-3 w-1/6">
             Download
           </th>
           <th scope="col" class="px-6 py-3 w-1/6">
-            Delete
+            Elimina
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="profile in profiles">
-          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-            <NuxtLink :to="{ name: 'profiles-uuid', params: { uuid: profile.uuid } }">[{{ profile.device_type }}] {{
-              profile.name }} - v{{ profile.version }}</NuxtLink>
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 hover:cursor-pointer" v-for="profile in profiles">
+          <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white" @click="goToProfile(profile.uuid)">
+            {{ profile.device_type }}
+          </th>
+          <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white" @click="goToProfile(profile.uuid)">
+            {{ profile.name }}
+          </th>
+          <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white" @click="goToProfile(profile.uuid)">
+            {{ profile.version }}
           </th>
           <td class="px-6 py-4">
             <NuxtLink :to="`/api/files/${profile.uuid}`" target="_blank" class="text-xs text-green-800" download
@@ -53,6 +64,7 @@
   </section>
 </template>
 <script setup lang="ts">
+const router = useRouter()
 const alert_type = ref('')
 const alert_message = ref('')
 
@@ -80,5 +92,9 @@ const deleteProfile = async (uuid: string) => {
 
   alert_message.value = `${response.profile} (${response.uuid}) Eliminato!`
   alert_type.value = 'success'
+}
+
+const goToProfile = (uuid: string) => {
+  router.push({ name: 'profiles-uuid', params: { uuid: uuid } })
 }
 </script>
