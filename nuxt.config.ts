@@ -1,13 +1,19 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
-  devtools: { enabled: true },
+  devtools: { 
+    enabled: true,
+    timeline: {
+      enabled: true
+    }
+  },
   css: ['~/public/css/main.css'],
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-fonts',
-    'nuxt-file-storage',
     '@nuxt/image',
+    '@vee-validate/nuxt',
+    'nuxt-file-storage'
   ],
   tailwindcss: {
     configPath: 'tailwind.config',
@@ -25,6 +31,10 @@ export default defineNuxtConfig({
     }
   },
   fileStorage: {
-    mount: './data/xml',
+    mount: process.env.PATH_XML,
   },
+  veeValidate: {
+    // disable or enable auto imports
+    autoImports: true,
+  }
 })

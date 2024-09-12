@@ -6,7 +6,7 @@
   <div class="" v-else>
     <div class="flex">
       <component :is="DeviceType" :items="items" device="js1" inverted="true" class="w-1/2" />
-      <component :is="DeviceType" :items="items" device="js2" inverted="true" class="w-1/2" />
+      <component :is="DeviceType" :items="items" device="js2" class="w-1/2" />
     </div>
     
   </div>

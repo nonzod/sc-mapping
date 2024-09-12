@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
       .where(eq(ProfileTable.uuid, profile_uuid))
       .all()
 
-      const xml = readFileSync(`${process.cwd()}/data/${res_profile[0].filepath}`, 'utf8')
+      const xml = readFileSync(`${process.cwd()}/${process.env.PATH_XML}/${res_profile[0].filepath}`, 'utf8')
       
       return xml
   } catch (e: any) {

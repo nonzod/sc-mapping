@@ -1172,6 +1172,32 @@
     unimport "^3.11.0"
     untyped "^1.4.2"
 
+"@nuxt/kit@^3.8.2":
+  version "3.13.1"
+  resolved "https://registry.yarnpkg.com/@nuxt/kit/-/kit-3.13.1.tgz#69501efc661ba861f45ed947918efb3e84838365"
+  integrity sha512-FkUL349lp/3nVfTIyws4UDJ3d2jyv5Pk1DC1HQUCOkSloYYMdbRcQAUcb4fe2TCLNWvHM+FhU8jnzGTzjALZYA==
+  dependencies:
+    "@nuxt/schema" "3.13.1"
+    c12 "^1.11.2"
+    consola "^3.2.3"
+    defu "^6.1.4"
+    destr "^2.0.3"
+    globby "^14.0.2"
+    hash-sum "^2.0.0"
+    ignore "^5.3.2"
+    jiti "^1.21.6"
+    klona "^2.0.6"
+    knitwork "^1.1.0"
+    mlly "^1.7.1"
+    pathe "^1.1.2"
+    pkg-types "^1.2.0"
+    scule "^1.3.0"
+    semver "^7.6.3"
+    ufo "^1.5.4"
+    unctx "^2.3.1"
+    unimport "^3.11.1"
+    untyped "^1.4.2"
+
 "@nuxt/schema@3.13.0", "@nuxt/schema@^3.13.0":
   version "3.13.0"
   resolved "https://registry.npmjs.org/@nuxt/schema/-/schema-3.13.0.tgz"
@@ -1188,6 +1214,24 @@
     ufo "^1.5.4"
     uncrypto "^0.1.3"
     unimport "^3.11.0"
+    untyped "^1.4.2"
+
+"@nuxt/schema@3.13.1":
+  version "3.13.1"
+  resolved "https://registry.yarnpkg.com/@nuxt/schema/-/schema-3.13.1.tgz#a60ccb53457dec085b4aa69b6b5a6683618af328"
+  integrity sha512-ishbhzVGspjshG9AG0hYnKYY6LWXzCtua7OXV7C/DQ2yA7rRcy1xHpzKZUDbIRyxCHHCAcBd8jfHEUmEuhEPrA==
+  dependencies:
+    compatx "^0.1.8"
+    consola "^3.2.3"
+    defu "^6.1.4"
+    hookable "^5.5.3"
+    pathe "^1.1.2"
+    pkg-types "^1.2.0"
+    scule "^1.3.0"
+    std-env "^3.7.0"
+    ufo "^1.5.4"
+    uncrypto "^0.1.3"
+    unimport "^3.11.1"
     untyped "^1.4.2"
 
 "@nuxt/telemetry@^2.5.4":
@@ -1627,6 +1671,15 @@
     hookable "^5.5.3"
     unhead "1.10.0"
 
+"@vee-validate/nuxt@^4.13.2":
+  version "4.13.2"
+  resolved "https://registry.yarnpkg.com/@vee-validate/nuxt/-/nuxt-4.13.2.tgz#52f352fb82754e07ded4bf2459bd96617931adf8"
+  integrity sha512-rpYYO2isCrgHRdJnKRXGPn8aqhyZvCPUJgNubftPum1txbngkO/LNiFsZdFDO7auGprDAQf7axpszRfeKoCGVg==
+  dependencies:
+    "@nuxt/kit" "^3.8.2"
+    local-pkg "^0.5.0"
+    vee-validate "4.13.2"
+
 "@vercel/nft@^0.26.5":
   version "0.26.5"
   resolved "https://registry.npmjs.org/@vercel/nft/-/nft-0.26.5.tgz"
@@ -1774,6 +1827,11 @@
   dependencies:
     de-indent "^1.0.2"
     he "^1.2.0"
+
+"@vue/devtools-api@^6.6.1":
+  version "6.6.4"
+  resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.6.4.tgz#cbe97fe0162b365edc1dba80e173f90492535343"
+  integrity sha512-sGhTPMuXqZ1rVOk32RylztWkfXTRhuS7vgAKv0zjqk8gbsHkJ7xfFf+jbySxt7tWObEJwyKaHMikV/WGDiQm8g==
 
 "@vue/devtools-api@^6.6.3":
   version "6.6.3"
@@ -2241,6 +2299,24 @@ c12@^1.11.1:
     pathe "^1.1.2"
     perfect-debounce "^1.0.0"
     pkg-types "^1.1.1"
+    rc9 "^2.1.2"
+
+c12@^1.11.2:
+  version "1.11.2"
+  resolved "https://registry.yarnpkg.com/c12/-/c12-1.11.2.tgz#f8a1e30c10f4b273894a1bcb6944f76c15b56717"
+  integrity sha512-oBs8a4uvSDO9dm8b7OCFW7+dgtVrwmwnrVXYzLm43ta7ep2jCn/0MhoUFygIWtxhyy6+/MG7/agvpY0U1Iemew==
+  dependencies:
+    chokidar "^3.6.0"
+    confbox "^0.1.7"
+    defu "^6.1.4"
+    dotenv "^16.4.5"
+    giget "^1.2.3"
+    jiti "^1.21.6"
+    mlly "^1.7.1"
+    ohash "^1.1.3"
+    pathe "^1.1.2"
+    perfect-debounce "^1.0.0"
+    pkg-types "^1.2.0"
     rc9 "^2.1.2"
 
 cac@^6.7.14:
@@ -5985,6 +6061,11 @@ type-fest@^3.8.0:
   resolved "https://registry.npmjs.org/type-fest/-/type-fest-3.13.1.tgz"
   integrity sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==
 
+type-fest@^4.8.3:
+  version "4.26.1"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-4.26.1.tgz#a4a17fa314f976dd3e6d6675ef6c775c16d7955e"
+  integrity sha512-yOGpmOAL7CkKe/91I5O3gPICmJNLJ1G4zFYVAsRHg7M64biSnPtRj0WNQt++bRkjYOqjWXrhnUw1utzmVErAdg==
+
 type-is@^1.6.16:
   version "1.6.18"
   resolved "https://registry.npmjs.org/type-is/-/type-is-1.6.18.tgz"
@@ -6192,6 +6273,14 @@ vary@^1.1.2:
   version "1.1.2"
   resolved "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz"
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
+
+vee-validate@4.13.2:
+  version "4.13.2"
+  resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-4.13.2.tgz#cf601c9ac029d58a15aecc1dbab28b15628f0a0e"
+  integrity sha512-HlpR/6MJ92TW9f135umMZKUqdd/tFQTxLNSf2ImbU4Y/MlLVAUpF1l64VdjTOhbClAqPjCb5p/SqHDxLpUHXrw==
+  dependencies:
+    "@vue/devtools-api" "^6.6.1"
+    type-fest "^4.8.3"
 
 vite-hot-client@^0.2.3:
   version "0.2.3"

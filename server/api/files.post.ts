@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
   // Questa roba è da migliorare...
   const today = new Date()
   const objpath:any = {
-    mount: './data/xml',
+    mount: process.env.PATH_XML,
     year: today.getFullYear(),
     month: today.getMonth(),
     day: today.getDate()
@@ -30,6 +30,7 @@ export default defineEventHandler(async (event) => {
   const basepath: string = `${objpath.year}/${objpath.month}/${objpath.day}/`
   // --
 
+  // Solo un file viene considerato
   const ufile = await storeFileLocally(
     files[0],           // the file object
     12,                 // you can add a name for the file or length of Unique ID that will be automatically generated!
@@ -47,7 +48,7 @@ export default defineEventHandler(async (event) => {
     version: profile.version,
     rebind_version: profile.rebindVersion,
     options_version: profile.optionsVersion,
-    filepath: `xml/${basepath}${ufile}`
+    filepath: `${basepath}${ufile}`
   }).run()
 
   actionmap.forEach(async (am: ActionMap) => {
