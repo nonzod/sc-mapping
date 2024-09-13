@@ -55,32 +55,52 @@ export default defineEventHandler(async (event) => {
       filepath: `${basepath}${ufile}`
     })
 
+  /**
+   * Inserimento action su DB
+   * @param device_section 
+   * @param action 
+   */
+  const insertAction = async (device_section: string, action: Action) => {
+    const device_action: string = action._name
+
+    if (action.rebind && action.rebind['_input']) {
+      const input: Array<string> = action.rebind._input.split('_')
+
+      const device_name: string = input[0]
+      input.shift()
+      const device_input: string = input.join(' ')
+
+      if (device_input !== '') {
+        await useDrizzle()
+          .insert(ActionMapTable)
+          .values({
+            device: device_name,
+            section: device_section,
+            button: device_input,
+            action: device_action,
+            profile: uuid
+          })
+      }
+    }
+  }
+
+  /**
+   * Actionmap, le action se sono multiple, arrivano in un array am.action[] altrimenti
+   * direttamnte in am.action
+   */
   actionmap.forEach(async (am: ActionMap) => {
     const device_section: string = am._name;
 
-    for (const idx in am.action) {
-      const action: Action = am.action[idx];
-      const device_action: string = action._name
-
-      if (action.rebind && action.rebind['_input']) {
-        const input: Array<string> = action.rebind._input.split('_')
-
-        const device_name: string = input[0]
-        input.shift()
-        const device_input: string = input.join(' ')
-
-        if (device_input !== '') {
-          await useDrizzle()
-            .insert(ActionMapTable)
-            .values({
-              device: device_name,
-              section: device_section,
-              button: device_input,
-              action: device_action,
-              profile: uuid
-            })
-        }
+    try {
+      if (Array.isArray(am.action)) {
+        am.action.forEach(async (a: Action) => {
+          insertAction(device_section, a)
+        })
+      } else {
+        insertAction(device_section, am.action)
       }
+    } catch {
+      console.error(`Qualcosa è andato storto su ${am._name}`)
     }
   })
 
@@ -120,9 +140,10 @@ export default defineEventHandler(async (event) => {
   }
 })
 
+
 type ActionMap = {
   _name: string,
-  action: Array<Action>
+  action: Action[]
 }
 
 type Action = {
