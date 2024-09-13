@@ -2,7 +2,7 @@
   <div>
     <h2>Turtlebeach Velocity One Fightstick</h2>
     <p class="text-xs"><i>Slider 1</i> viene mappato su StarCitizen come <i>rotz</i></p>
-    <h3 class="font-bold">DEVICE: {{ device }}</h3>
+    <h3 class="font-bold">DEVICE: {{ device.name }}</h3>
 
     <h4 class="font-semibold">AXIS</h4>
     <ul class="">
@@ -105,7 +105,7 @@ const labels: any = {
 }
 
 const button = function (name: string): string {
-  const res = props.items.filter((item: any) => item.device == props.device && item.button == name)
+  const res = props.items.filter((item: any) => item.device == props.device.prefix && item.button == name)
 
   if (res != '') {
     var out: string = '<ul>'

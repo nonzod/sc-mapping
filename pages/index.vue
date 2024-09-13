@@ -67,7 +67,6 @@
 const router = useRouter()
 const alert_type = ref('')
 const alert_message = ref('')
-
 /**
  * List Profiles
  */
@@ -79,12 +78,13 @@ const { data: profiles } = await useFetch('/api/profiles', {
  * Delete Profile
  */
 const deleteProfile = async (uuid: string) => {
+
   const response: any = await $fetch('/api/profiles/delete/' + uuid, {
     method: 'GET',
   })
 
   if (!response) {
-    alert_message.value = `${response}`
+    alert_message.value = 'Errore'
     alert_type.value = 'danger'
 
     return

@@ -16,26 +16,7 @@
       </Field>
       <ErrorMessage name="device_type" class="mt-2 text-sm text-red-600 dark:text-red-500" />
     </div>
-    <div class="mb-5">
-      <fieldset>
-        <legend class="sr-only">Numero dispositivi</legend>
-        <div class="flex items-center mb-4">
-          <Field name="num_of_devices" id="value-1" type="radio" value="1"
-            class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
-          <label for="value-1" class="block ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-            Singolo device
-          </label>
-        </div>
-        <div class="flex items-center mb-4">
-          <Field name="num_of_devices" id="value-2" type="radio" value="2"
-            class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
-          <label for="value-2" class="block ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-            Doppio device
-          </label>
-        </div>
-        <ErrorMessage name="num_of_devices" class="text-sm text-red-600 dark:text-red-500" />
-      </fieldset>
-    </div>
+
     <button type="submit" class="btn-1">Upload</button>
   </Form>
 </template>
@@ -47,13 +28,6 @@ const appConfig = useAppConfig()
 
 // Validazione
 const validation_schema = {
-  num_of_devices: (value: number) => {
-    if (value && (value > 0 && value < 3)) {
-      return true;
-    }
-
-    return 'Indica il numero di device configurati, singolo o doppio';
-  },
   device_type: (value: string) => {
     if (value)
       return true;
@@ -77,8 +51,7 @@ async function onSubmit(values: any) {
     method: 'POST',
     body: {
       files: files.value,
-      device_type: values.device_type,
-      num_of_devices: values.num_of_devices
+      device_type: values.device_type
     }
   })
 

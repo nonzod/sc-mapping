@@ -1,29 +1,30 @@
-import { actionmap as ActionMapTable, profile as ProfileTable } from '~/db/schema'
+import { actionmap as ActionMapTable, profile as ProfileTable, device as DeviceTable } from '~/db/schema'
+import { like, count, eq, and } from 'drizzle-orm'
 import { v4 as uuidv4 } from 'uuid';
 import { existsSync, mkdirSync } from 'fs';
 
 export default defineEventHandler(async (event) => {
-  const { files, device_type, num_of_devices } = await readBody<{ files: File[], device_type: string, num_of_devices: number }>(event)
+  const { files, device_type } = await readBody<{ files: File[], device_type: string }>(event)
 
   // Questa roba è da migliorare...
   const today = new Date()
-  const objpath:any = {
+  const objpath: any = {
     mount: process.env.PATH_XML,
     year: today.getFullYear(),
     month: today.getMonth(),
     day: today.getDate()
   }
 
-  if(!existsSync(objpath.mount)) {
+  if (!existsSync(objpath.mount)) {
     mkdirSync(objpath.mount)
   }
-  if(!existsSync(`${objpath.mount}/${objpath.year}`)) {
+  if (!existsSync(`${objpath.mount}/${objpath.year}`)) {
     mkdirSync(`${objpath.mount}/${objpath.year}`)
   }
-  if(!existsSync(`${objpath.mount}/${objpath.year}/${objpath.month}`)) {
+  if (!existsSync(`${objpath.mount}/${objpath.year}/${objpath.month}`)) {
     mkdirSync(`${objpath.mount}/${objpath.year}/${objpath.month}`)
   }
-  if(!existsSync(`${objpath.mount}/${objpath.year}/${objpath.month}/${objpath.day}`)) {
+  if (!existsSync(`${objpath.mount}/${objpath.year}/${objpath.month}/${objpath.day}`)) {
     mkdirSync(`${objpath.mount}/${objpath.year}/${objpath.month}/${objpath.day}`)
   }
 
@@ -32,24 +33,27 @@ export default defineEventHandler(async (event) => {
 
   // Solo un file viene considerato
   const ufile = await storeFileLocally(
+    // @ts-expect-error
     files[0],           // the file object
     12,                 // you can add a name for the file or length of Unique ID that will be automatically generated!
     `/${basepath}`      // the folder the file will be stored in
   )
 
-  const uuid: string = uuidv4(); 
-  const { profile, actionmap } = parseXml(`${objpath.mount}/${basepath}${ufile}`, 'actionmap')
+  const uuid: string = uuidv4();
+  const { profile, actionmap, devices } = parseXml(`${objpath.mount}/${basepath}${ufile}`)
+  let detected_devices: number = 0
 
-  useDrizzle().insert(ProfileTable).values({
-    uuid: uuid,
-    name: profile.profileName,
-    device_type: device_type,
-    num_of_devices: num_of_devices,
-    version: profile.version,
-    rebind_version: profile.rebindVersion,
-    options_version: profile.optionsVersion,
-    filepath: `${basepath}${ufile}`
-  }).run()
+  await useDrizzle()
+    .insert(ProfileTable)
+    .values({
+      uuid: uuid,
+      name: profile.profileName,
+      device_type: device_type,
+      version: profile.version,
+      rebind_version: profile.rebindVersion,
+      options_version: profile.optionsVersion,
+      filepath: `${basepath}${ufile}`
+    })
 
   actionmap.forEach(async (am: ActionMap) => {
     const device_section: string = am._name;
@@ -64,19 +68,51 @@ export default defineEventHandler(async (event) => {
         const device_name: string = input[0]
         input.shift()
         const device_input: string = input.join(' ')
-        
+
         if (device_input !== '') {
-          useDrizzle().insert(ActionMapTable).values({
-            device: device_name,
-            section: device_section,
-            button: device_input,
-            action: device_action,
-            profile: uuid
-          }).run()
+          await useDrizzle()
+            .insert(ActionMapTable)
+            .values({
+              device: device_name,
+              section: device_section,
+              button: device_input,
+              action: device_action,
+              profile: uuid
+            })
         }
       }
     }
   })
+
+  // Pulizia device non realmente utilizzati
+  // Verifico quali devi hanno effettivamente dei pulsanti mappati 
+  devices.forEach(async (d) => {
+    const res: any = await useDrizzle()
+      .select({ count: count() })
+      .from(ActionMapTable)
+      .where(and(eq(ActionMapTable.profile, uuid), like(ActionMapTable.device, `js${d.instance}%`)))
+
+    if (res[0].count > 0) {
+      detected_devices++
+
+      await useDrizzle()
+        .insert(DeviceTable)
+        .values({
+          profile: uuid,
+          name: d.product,
+          instance: d.instance,
+          prefix: `js${d.instance}`,
+          type: 'joystick'
+        })
+    }
+  })
+
+  await useDrizzle()
+    .update(ProfileTable)
+    .set({
+      num_of_devices: detected_devices
+    })
+    .where(eq(ProfileTable.uuid, uuid))
 
   return {
     profile: profile.profileName,
