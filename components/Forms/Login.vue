@@ -1,8 +1,9 @@
 <template>
+  <h2 class="mb-5">Login</h2>
   <Form class="lg:w-1/2 sm:w-full" v-slot="{ values }" :validation-schema="validation_schema" @submit="onSubmit">
     <div class="mb-5">
       <label class="input" for="username">Username</label>
-      <Field id="username" name="username" />
+      <Field type="text" id="username" name="username" />
       <ErrorMessage name="username" class="mt-2 text-sm text-red-600 dark:text-red-500" />
     </div>
     <div class="mb-5">
@@ -15,7 +16,7 @@
     </div>
     
 
-    <button type="submit" class="btn-1">Login!</button>
+    <button type="submit" class="btn-1">Entra!</button>
 
   </Form>
 </template>
