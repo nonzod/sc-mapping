@@ -13,7 +13,8 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@nuxt/image',
     '@vee-validate/nuxt',
-    'nuxt-file-storage'
+    'nuxt-file-storage',
+    'nuxt-auth-utils'
   ],
   tailwindcss: {
     configPath: 'tailwind.config',

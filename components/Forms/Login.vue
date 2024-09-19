@@ -1,0 +1,38 @@
+<template>
+  <Form class="lg:w-1/2 sm:w-full" v-slot="{ values }" :validation-schema="validation_schema" @submit="onSubmit">
+    <div class="mb-5">
+      <label class="input" for="username">Username</label>
+      <Field id="username" name="username" />
+      <ErrorMessage name="username" class="mt-2 text-sm text-red-600 dark:text-red-500" />
+    </div>
+    <div class="mb-5">
+      <label class="input" for="password">Password</label>
+      <Field type="password" id="password" name="password" />
+      <ErrorMessage name="password" class="mt-2 text-sm text-red-600 dark:text-red-500" />
+    </div>
+
+    <button type="submit" class="btn-1">Login!</button>
+
+  </Form>
+</template>
+<script lang="ts" setup>
+// Validazione
+const validation_schema = {
+  username: (value: string) => {
+    if (value)
+      return true
+
+    return 'Indica il tuo username'
+  },
+  password: (value: string) => {
+    if (value)
+      return true
+
+    return "Indica la tua password"
+  }
+};
+
+async function onSubmit(values: any) {
+
+}
+</script>
