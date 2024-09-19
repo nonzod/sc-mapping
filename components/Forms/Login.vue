@@ -10,12 +10,19 @@
       <Field type="password" id="password" name="password" />
       <ErrorMessage name="password" class="mt-2 text-sm text-red-600 dark:text-red-500" />
     </div>
+    <div class="mb-5">
+      <span class="alert danger">{{ message }}</span>
+    </div>
+    
 
     <button type="submit" class="btn-1">Login!</button>
 
   </Form>
 </template>
 <script lang="ts" setup>
+const router = useRouter()
+const message = ref('')
+
 // Validazione
 const validation_schema = {
   username: (value: string) => {
@@ -33,6 +40,23 @@ const validation_schema = {
 };
 
 async function onSubmit(values: any) {
+  try {
+  const response: any = await $fetch('/api/auth/login', {
+    method: 'POST',
+    body: {
+      username: values.username,
+      password: values.password
+    }
+  })
+  } catch(response: any) {
+    message.value = 'Login fallito!'
 
+    return {
+      statusCode: response.statusCode,
+      message: response.message
+    }
+  } 
+  
+  router.push('/')
 }
 </script>

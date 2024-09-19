@@ -1,10 +1,14 @@
-export default defineEventHandler(async (event) => {
+import { refreshNuxtData } from "nuxt/app"
 
-  if(values.username == "zod" && values.password == "zod") {
-    await setUserSession(event, {
+export default defineEventHandler(async (event) => {
+  const { username, password } = await readBody<{ username: string, password: string }>(event)
+  
+  if (username == "zod" && password == "zod") {
+    const sessionData = {
       // User data
       user: {
-        login: 'zod'
+        id: 1,
+        login: username
       },
       // Private data accessible on server/ routes
       secure: {
@@ -12,6 +16,13 @@ export default defineEventHandler(async (event) => {
       },
       // Any extra fields for the session data
       loggedInAt: new Date()
-    })
+    }
+    await setUserSession(event, sessionData)
+  } else {
+    setResponseStatus(event, 401, "401 Unauthorized")
+    
+    return
   }
+
+  return await getUserSession(event)
 })

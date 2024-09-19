@@ -27,6 +27,14 @@
               About</NuxtLink>
           </li>
           <li>
+            <NuxtLink v-if="!loggedIn" to="/user/login"
+              class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+              Login</NuxtLink>
+            <button v-else @click="logout"
+              class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+              Logout {{ user?.login }}</button>
+          </li>
+          <li>
             <a href="#" @click="toggleDarkMode">
               <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5V3m0 18v-2M7.05 7.05 5.636 5.636m12.728 12.728L16.95 16.95M5 12H3m18 0h-2M7.05 16.95l-1.414 1.414M18.364 5.636 16.95 7.05M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" v-if="mode_class == 'dark'" />
@@ -42,7 +50,9 @@
 </template>
 <script setup lang="ts">
 import appConfig from '~/app.config';
-
+import { useUserSession } from '#imports'
+const router = useRouter()
+const { loggedIn, user, session, fetch, clear } = useUserSession()
 const mode_class = ref(appConfig.default_theme)
 
 useHead({
@@ -54,6 +64,12 @@ useHead({
   },
 });
 
+function logout() {
+  clear()
+
+  router.push('/user/login')
+}
+
 function toggleDarkMode() {
   if (mode_class.value == 'dark') {
     mode_class.value = ''
@@ -61,4 +77,8 @@ function toggleDarkMode() {
     mode_class.value = 'dark'
   }
 }
+
+onUpdated(() => {
+  console.log('Header OnUpdated')
+})
 </script>

@@ -3,7 +3,7 @@
 
   <AppAlert :type="alert_type">{{ alert_message }}</AppAlert>
 
-  <FormsUploadProfile v-model:alert_type="alert_type" v-model:alert_message="alert_message" />
+  <FormsUploadProfile v-model:alert_type="alert_type" v-model:alert_message="alert_message" v-if="loggedIn" />
 
   <section class="w-full mt-5">
     <h2>Profili caricati</h2>
@@ -23,7 +23,7 @@
           <th scope="col" class="px-6 py-3 w-1/6">
             Download
           </th>
-          <th scope="col" class="px-6 py-3 w-1/6">
+          <th scope="col" class="px-6 py-3 w-1/6" v-if="loggedIn">
             Elimina
           </th>
         </tr>
@@ -49,7 +49,7 @@
               </svg>
             </NuxtLink>
           </td>
-          <td class="px-6 py-4">
+          <td class="px-6 py-4" v-if="loggedIn">
             <button @click="deleteProfile(profile.uuid)" class="text-xs text-red-800">
               <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                 width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -67,6 +67,8 @@
 const router = useRouter()
 const alert_type = ref('')
 const alert_message = ref('')
+const { loggedIn } = useUserSession()
+
 /**
  * List Profiles
  */
@@ -97,4 +99,8 @@ const deleteProfile = async (uuid: string) => {
 const goToProfile = (uuid: string) => {
   router.push({ name: 'profiles-uuid', params: { uuid: uuid } })
 }
+
+onBeforeUpdate(async () => {
+  await refreshNuxtData()
+})
 </script>
