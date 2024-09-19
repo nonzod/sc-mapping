@@ -22,7 +22,15 @@
 </template>
 <script lang="ts" setup>
 const router = useRouter()
+const { gtag } = useGtag()
+
 const message = ref('')
+
+// SSR-ready
+gtag('event', 'screen_view', {
+  app_name: 'sc-mapping',
+  screen_name: 'Login'
+})
 
 // Validazione
 const validation_schema = {

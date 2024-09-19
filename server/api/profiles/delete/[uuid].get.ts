@@ -4,10 +4,6 @@ import { rmSync } from 'fs'
 
 export default defineEventHandler(async (event) => {
   const client_ip: any = getRequestHeader(event, 'x-forwarded-for')
-  const allowed_ips: Array<string> = process.env.ALLOWED_IP?.split(',')
-
-  if(!allowed_ips.includes(client_ip))
-    return
 
   try {
     const profile_uuid = event.context.params?.uuid as string;

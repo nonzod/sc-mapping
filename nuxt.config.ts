@@ -14,7 +14,8 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@vee-validate/nuxt',
     'nuxt-file-storage',
-    'nuxt-auth-utils'
+    'nuxt-auth-utils',
+    'nuxt-gtag'
   ],
   tailwindcss: {
     configPath: 'tailwind.config',
@@ -30,6 +31,23 @@ export default defineNuxtConfig({
     families: {
       Roboto: true
     }
+  },
+  gtag: {
+    // ID preso del .env
+    enabled: true,
+    config: {
+      page_title: 'Star Citizen device mapping tool'
+    },
+    initCommands: [
+      // Setup up consent mode
+      ['consent', 'default', {
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        wait_for_update: 500,
+      }]
+    ]
   },
   fileStorage: {
     mount: process.env.PATH_XML,

@@ -4690,6 +4690,16 @@ nuxt-file-storage@^0.2.7:
     "@nuxt/kit" "^3.9.3"
     defu "^6.1.4"
 
+nuxt-gtag@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/nuxt-gtag/-/nuxt-gtag-3.0.1.tgz#b027f7dda0ff1819529cf42b75d32c2d818ce6f9"
+  integrity sha512-dfDeL8JwvwdCddlSBXqofEVdoONVZ5yqztqoiUs+4fEL+QfAAHtK+3MaLyEVO4keZuiyVQs6XPUJyR7afTVXNg==
+  dependencies:
+    "@nuxt/kit" "^3.13.0"
+    defu "^6.1.4"
+    pathe "^1.1.2"
+    ufo "^1.5.4"
+
 nuxt@^3.13.0:
   version "3.13.0"
   resolved "https://registry.npmjs.org/nuxt/-/nuxt-3.13.0.tgz"

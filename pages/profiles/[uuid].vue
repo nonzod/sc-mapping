@@ -12,9 +12,17 @@
 </template>
 <script setup lang="ts">
 const route = useRoute()
+const { gtag } = useGtag()
+
 const { data: profile } = await useLazyFetch(`/api/profiles/${route.params.uuid}`);
 const { data: devices } = await useLazyFetch(`/api/profiles/device/${route.params.uuid}`);
 const { data: items, status } = await useLazyFetch(`/api/profiles/binding/${route.params.uuid}`);
+
+// SSR-ready
+gtag('event', 'screen_view', {
+  app_name: 'sc-mapping',
+  screen_name: 'Dettaglio profilo'
+})
 
 const DeviceType = defineAsyncComponent(() =>
   import(`../../components/Devices/${profile.value[0].device_type}.vue`)

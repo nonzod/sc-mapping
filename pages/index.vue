@@ -65,9 +65,16 @@
 </template>
 <script setup lang="ts">
 const router = useRouter()
+const { gtag } = useGtag()
 const alert_type = ref('')
 const alert_message = ref('')
 const { loggedIn } = useUserSession()
+
+// SSR-ready
+gtag('event', 'screen_view', {
+  app_name: 'sc-mapping',
+  screen_name: 'Home'
+})
 
 /**
  * List Profiles
