@@ -8,6 +8,7 @@ export default defineEventHandler(async (event) => {
       .select()
       .from(ProfileTable)
       .where(eq(ProfileTable.uuid, profile_uuid))
+      .all().shift()
   } catch (e: any) {
     throw createError({
       statusCode: 400,

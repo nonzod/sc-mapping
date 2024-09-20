@@ -29,7 +29,6 @@ filtered.forEach((e: any) => {
   const idx = buttons.findIndex(elem => elem['name'] == e.button)
   // @ts-ignore
   buttons[idx].actions.push(e.action)
-
 })
 
 type Button = {

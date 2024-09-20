@@ -22,6 +22,7 @@
     "drizzle-orm": "^0.33.0",
     "fast-xml-parser": "^4.4.1",
     "flowbite": "^2.5.1",
+    "generate-password": "^1.7.1",
     "js-sha256": "^0.11.0",
     "nuxt": "^3.13.0",
     "nuxt-auth-utils": "^0.3.8",
@@ -29,6 +30,7 @@
     "uuid": "^10.0.0",
     "vee-validate": "^4.13.2",
     "vue": "latest",
+    "vue-interact": "^2.0.0",
     "yarn": "^1.22.22",
     "zod": "^3.23.8"
   },
