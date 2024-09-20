@@ -60,7 +60,7 @@ async function onSubmit(values: any) {
       }
     })
   } catch (response: any) {
-    message.value = 'Creazione fallita!'
+    message.value = response.statusMessage
 
     return {
       statusCode: response.statusCode,

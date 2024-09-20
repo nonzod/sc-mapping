@@ -1,14 +1,11 @@
 import { user as UserTable } from '~/db/schema'
-import { like, count, eq, and } from 'drizzle-orm'
 
 export default defineEventHandler(async (event) => {
   const { user } = await requireUserSession(event)
   const { email, username, password } = await readBody<{ email: string, username: string, password: string }>(event)
-  const hash = password
 
-  console.debug(hash)
   try {
-    await useDrizzle()
+    const res_user = await useDrizzle()
       .insert(UserTable)
       .values({
         username: username,
@@ -16,14 +13,15 @@ export default defineEventHandler(async (event) => {
         email: email,
         role: "authenticated",
         consent: "{}"
-      })
+      }).execute()
 
-    return {
-      username: username
-    }
-  } catch {
-    setResponseStatus(event, 500, "500 Errore creazione utente")
+  } catch(res_user: any) {
+    setResponseStatus(event, 500, res_user?.message)
 
     return
+  }
+
+  return {
+    username: username
   }
 })

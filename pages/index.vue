@@ -29,14 +29,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 hover:cursor-pointer" v-for="profile in profiles">
-          <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white" @click="goToProfile(profile.uuid)">
+        <tr
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 hover:cursor-pointer"
+          v-for="profile in profiles">
+          <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
+            @click="goToProfile(profile.uuid)">
             {{ profile.device_type }}
           </th>
-          <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white" @click="goToProfile(profile.uuid)">
+          <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
+            @click="goToProfile(profile.uuid)">
             {{ profile.name }}
           </th>
-          <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white" @click="goToProfile(profile.uuid)">
+          <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
+            @click="goToProfile(profile.uuid)">
             {{ profile.version }}
           </th>
           <td class="px-6 py-4">
@@ -88,26 +93,22 @@ const { data: profiles } = await useFetch('/api/profiles', {
  */
 const deleteProfile = async (uuid: string) => {
 
-  const response: any = await $fetch('/api/profiles/delete/' + uuid, {
-    method: 'GET',
-  })
+  try {
+    const response: any = await $fetch('/api/profiles/delete/' + uuid, {
+      method: 'GET',
+    })
 
-  if (!response) {
-    alert_message.value = 'Errore'
+    alert_message.value = `${response.profile} (${response.uuid}) Eliminato!`
+    alert_type.value = 'success'
+
+  } catch (e: any) {
+    alert_message.value = e.statusMessage
     alert_type.value = 'danger'
-
-    return
   }
 
-  alert_message.value = `${response.profile} (${response.uuid}) Eliminato!`
-  alert_type.value = 'success'
 }
 
 const goToProfile = (uuid: string) => {
   router.push({ name: 'profiles-uuid', params: { uuid: uuid } })
 }
-
-onBeforeUpdate(async () => {
-  await refreshNuxtData()
-})
 </script>

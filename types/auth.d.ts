@@ -2,8 +2,8 @@
 declare module '#auth-utils' {
   interface User {
     id: number
-    login: string,
-    role: string
+    login: string|null,
+    role: string|null
   }
 }
 

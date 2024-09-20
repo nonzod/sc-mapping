@@ -1,6 +1,6 @@
 <template>
   <h2 class="mb-5">Login</h2>
-  <Form class="lg:w-1/2 sm:w-full" v-slot="{ values }" :validation-schema="validation_schema" @submit="onSubmit">
+  <Form class="lg:w-1/2 sm:w-full" v-slot="{ values }" @submit="onSubmit">
     <div class="mb-5">
       <label class="input" for="username">Username</label>
       <Field type="text" id="username" name="username" :rules="usernameValidator" />
@@ -22,6 +22,7 @@
 </template>
 <script lang="ts" setup>
 import * as zod from 'zod';
+import { sha256 } from 'js-sha256';
 
 const router = useRouter()
 const { gtag } = useGtag()
@@ -49,7 +50,7 @@ async function onSubmit(values: any) {
     method: 'POST',
     body: {
       username: values.username,
-      password: values.password
+      password: sha256(values.password)
     }
   })
   } catch(response: any) {

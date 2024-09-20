@@ -24,32 +24,39 @@ export default defineEventHandler(async (event) => {
         .all().shift()
     }
 
-    useDrizzle()
-      .delete(ActionMapTable)
-      .where(eq(ActionMapTable.profile, profile_uuid))
-      .run()
+    if (res_profile) {
+      useDrizzle()
+        .delete(ActionMapTable)
+        .where(eq(ActionMapTable.profile, profile_uuid))
+        .run()
 
-    useDrizzle()
-      .delete(DeviceTable)
-      .where(eq(DeviceTable.profile, profile_uuid))
-      .run()
+      useDrizzle()
+        .delete(DeviceTable)
+        .where(eq(DeviceTable.profile, profile_uuid))
+        .run()
 
-    useDrizzle()
-      .delete(ProfileTable)
-      .where(eq(ProfileTable.uuid, profile_uuid))
-      .run()
+      useDrizzle()
+        .delete(ProfileTable)
+        .where(eq(ProfileTable.uuid, profile_uuid))
+        .run()
 
-    rmSync(`${process.cwd()}/${process.env.PATH_XML}/${res_profile?.filepath}`)
+      rmSync(`${process.cwd()}/${process.env.PATH_XML}/${res_profile?.filepath}`)
 
-    return {
-      profile: res_profile?.name,
-      uuid: res_profile?.uuid
+      return {
+        profile: res_profile?.name,
+        uuid: res_profile?.uuid
+      }
+    } else {
+      return createError({
+        statusCode: 401,
+        statusMessage: 'Puoi eliminare solo i tuo profili!'
+      });
     }
 
   } catch (e: any) {
     throw createError({
       statusCode: 400,
-      statusMessage: e.message,
+      message: e.message,
     });
   }
 })
