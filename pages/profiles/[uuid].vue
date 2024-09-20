@@ -3,11 +3,23 @@
   <div v-if="status === 'pending'">
     Loading ...
   </div>
-  <div class="" v-else>
-    <div class="flex">
-      <component :is="DeviceType" :items="items" :device="device" class="w-1/2" v-for="device in devices" />
+  <div class="p-6 space-y-6" v-else>
+    <div class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+      <ul>
+        <li>Nome: {{ profile.name }}</li>
+        <li>User: {{ profile.user_id }}</li>
+        <li>Type: {{ profile.device_type }}</li>
+        <li>UUID: {{ profile.uuid }}</li>
+      </ul>
     </div>
-
+    <div class="text-base leading-relaxed text-gray-500 dark:text-gray-400" v-for="device in devices">
+      {{ device.name }}
+      <ul>
+        <li>prefix: {{ device.prefix }}</li>
+        <li>instance: {{ device.instance }}</li>
+        <li>type: {{ device.type }}</li>
+      </ul>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -24,7 +36,4 @@ gtag('event', 'screen_view', {
   screen_name: 'Dettaglio profilo'
 })
 
-const DeviceType = defineAsyncComponent(() =>
-  import(`../../components/Devices/${profile.value[0].device_type}.vue`)
-)
 </script>
