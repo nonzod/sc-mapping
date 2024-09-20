@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
-  devtools: { 
+  devtools: {
     enabled: true,
     timeline: {
       enabled: true
@@ -34,6 +34,7 @@ export default defineNuxtConfig({
   },
   gtag: {
     // ID preso del .env
+    id: "G-GKR6BBPY55",
     enabled: true,
     config: {
       page_title: 'Star Citizen device mapping tool'

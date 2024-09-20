@@ -6,6 +6,7 @@ import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
 export const profile = sqliteTable('profile', {
   uuid: text('uuid').primaryKey({ autoIncrement: false }),
   name: text('name'),
+  user_id: integer('user_id').references(() => user.id),
   device_type: text('device_type'),
   num_of_devices: integer('num_of_devices'),
   version: integer('version'),
@@ -13,7 +14,7 @@ export const profile = sqliteTable('profile', {
   options_version: integer('options_version'),
   filepath: text('filepath')
 }, (profile) => ({})
-);
+)
 
 /**
  * Profile devices
@@ -26,7 +27,7 @@ export const device = sqliteTable('device', {
   instance: integer('instance'),
   prefix: text('prefix')
 }, (device) => ({})
-);
+)
 
 /**
  * Profile bindings
@@ -39,4 +40,17 @@ export const actionmap = sqliteTable('actionmap', {
   button: text('button'),
   action: text('action'),
 }, (actionmap) => ({})
-);
+)
+
+/**
+ * Users
+ */
+export const user = sqliteTable('user', {
+  id: integer('id').primaryKey(),
+  username: text('username').unique(),
+  password: text('password'),
+  role: text('role'),
+  email: text('email').unique(),
+  consent: text('consent'),
+}, (user) => ({})
+)

@@ -1,0 +1,1 @@
+INSERT INTO user (username, password, role, email, consent) VALUES ( "zod", "9c04f3c99d1d73d13c533c0d5d94e3a1ce43ad970788db9724e6161bce459cd0", "admin", "io@nicolatomassoni.it", "{}")

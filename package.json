@@ -16,16 +16,21 @@
     "@nuxtjs/google-fonts": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@vee-validate/nuxt": "^4.13.2",
+    "@vee-validate/zod": "^4.13.2",
     "better-sqlite3": "^11.2.1",
+    "crypto-js": "^4.2.0",
     "drizzle-orm": "^0.33.0",
     "fast-xml-parser": "^4.4.1",
     "flowbite": "^2.5.1",
+    "js-sha256": "^0.11.0",
     "nuxt": "^3.13.0",
     "nuxt-auth-utils": "^0.3.8",
     "nuxt-gtag": "^3.0.1",
     "uuid": "^10.0.0",
+    "vee-validate": "^4.13.2",
     "vue": "latest",
-    "yarn": "^1.22.22"
+    "yarn": "^1.22.22",
+    "zod": "^3.23.8"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
   "devDependencies": {

@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { existsSync, mkdirSync } from 'fs';
 
 export default defineEventHandler(async (event) => {
+  const { user } = await requireUserSession(event)
   const { files, device_type } = await readBody<{ files: File[], device_type: string }>(event)
 
   // Questa roba è da migliorare...
@@ -48,6 +49,7 @@ export default defineEventHandler(async (event) => {
     .values({
       uuid: uuid,
       name: profile.profileName,
+      user_id: user.id,
       device_type: device_type,
       version: profile.version,
       rebind_version: profile.rebindVersion,

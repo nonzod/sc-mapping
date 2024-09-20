@@ -1,17 +1,28 @@
 import { actionmap as ActionMapTable, profile as ProfileTable, device as DeviceTable } from '~/db/schema'
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { rmSync } from 'fs'
 
 export default defineEventHandler(async (event) => {
+  const { user } = await requireUserSession(event)
   const client_ip: any = getRequestHeader(event, 'x-forwarded-for')
 
   try {
     const profile_uuid = event.context.params?.uuid as string;
-    const res_profile = useDrizzle()
-      .select()
-      .from(ProfileTable)
-      .where(eq(ProfileTable.uuid, profile_uuid))
-      .all()
+    var res_profile
+
+    if (user.role == 'admin') { // Admin elimina tutto
+      res_profile = useDrizzle()
+        .select()
+        .from(ProfileTable)
+        .where(eq(ProfileTable.uuid, profile_uuid))
+        .all().shift()
+    } else {
+      res_profile = useDrizzle()
+        .select()
+        .from(ProfileTable)
+        .where(and(eq(ProfileTable.uuid, profile_uuid), eq(ProfileTable.user_id, user.id)))
+        .all().shift()
+    }
 
     useDrizzle()
       .delete(ActionMapTable)
@@ -28,13 +39,13 @@ export default defineEventHandler(async (event) => {
       .where(eq(ProfileTable.uuid, profile_uuid))
       .run()
 
-    rmSync(`${process.cwd()}/${process.env.PATH_XML}/${res_profile[0].filepath}`)
+    rmSync(`${process.cwd()}/${process.env.PATH_XML}/${res_profile?.filepath}`)
 
     return {
-      profile: res_profile[0].name,
-      uuid: res_profile[0].uuid
+      profile: res_profile?.name,
+      uuid: res_profile?.uuid
     }
-    
+
   } catch (e: any) {
     throw createError({
       statusCode: 400,
