@@ -3,52 +3,48 @@
 
   <AppAlert :type="alert_type">{{ alert_message }}</AppAlert>
 
-  <FormsUploadProfile v-model:alert_type="alert_type" v-model:alert_message="alert_message" v-if="global_store.loggedIn" />
+  <FormsUploadProfile v-model:alert_type="alert_type" v-model:alert_message="alert_message"
+    v-if="global_store.loggedIn" />
 
   <section class="w-full mt-5">
     <h2>Profili caricati</h2>
 
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 mt-5" >
-      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <table>
+      <thead>
         <tr>
-          <th scope="col" class="px-6 py-3">
+          <th scope="col">
             Tipo
           </th>
-          <th scope="col" class="px-6 py-3">
+          <th scope="col">
             Profilo
           </th>
-          <th scope="col" class="px-6 py-3">
+          <th scope="col">
             Dettagli
           </th>
-          <th scope="col" class="px-6 py-3 w-1/6">
+          <th scope="col" class="w-1/6">
             Download
           </th>
-          <th scope="col" class="px-6 py-3 w-1/6" v-if="global_store.loggedIn">
+          <th scope="col" class="w-1/6" v-if="global_store.loggedIn">
             Elimina
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 hover:cursor-pointer"
-          v-for="profile in profiles">
-          <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
-            @click="goToDetails(profile.uuid)">
+        <tr class="with-hover hover:cursor-pointer" v-for="profile in profiles">
+          <th scope="row" @click="goToDetails(profile.uuid)">
             {{ profile.device_type }}
           </th>
-          <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
-            @click="goToDetails(profile.uuid)">
+          <th scope="row" @click="goToDetails(profile.uuid)">
             {{ profile.name }}
           </th>
-          <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
-            @click="goToBindings(profile.uuid)">
+          <th scope="row" @click="goToBindings(profile.uuid)">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
               width="24" height="24" fill="none" viewBox="0 0 24 24">
               <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
                 d="m21 21-3.5-3.5M10 7v6m-3-3h6m4 0a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
             </svg>
           </th>
-          <td class="px-6 py-4">
+          <td>
             <NuxtLink :to="`/api/files/${profile.uuid}`" target="_blank" class="text-xs text-green-800" download
               external>
               <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +54,7 @@
               </svg>
             </NuxtLink>
           </td>
-          <td class="px-6 py-4" @click="deleteProfile(profile.uuid)" v-if="global_store.loggedIn">
+          <td @click="deleteProfile(profile.uuid)" v-if="global_store.loggedIn">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
               width="24" height="24" fill="none" viewBox="0 0 24 24">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
