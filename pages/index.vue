@@ -3,12 +3,12 @@
 
   <AppAlert :type="alert_type">{{ alert_message }}</AppAlert>
 
-  <FormsUploadProfile v-model:alert_type="alert_type" v-model:alert_message="alert_message" v-if="loggedIn" />
+  <FormsUploadProfile v-model:alert_type="alert_type" v-model:alert_message="alert_message" v-if="global_store.loggedIn" />
 
   <section class="w-full mt-5">
     <h2>Profili caricati</h2>
 
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 mt-5">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 mt-5" >
       <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
           <th scope="col" class="px-6 py-3">
@@ -23,7 +23,7 @@
           <th scope="col" class="px-6 py-3 w-1/6">
             Download
           </th>
-          <th scope="col" class="px-6 py-3 w-1/6" v-if="loggedIn">
+          <th scope="col" class="px-6 py-3 w-1/6" v-if="global_store.loggedIn">
             Elimina
           </th>
         </tr>
@@ -58,7 +58,7 @@
               </svg>
             </NuxtLink>
           </td>
-          <td class="px-6 py-4" @click="deleteProfile(profile.uuid)" v-if="loggedIn">
+          <td class="px-6 py-4" @click="deleteProfile(profile.uuid)" v-if="global_store.loggedIn">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
               width="24" height="24" fill="none" viewBox="0 0 24 24">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -76,6 +76,7 @@ const { gtag } = useGtag()
 const alert_type = ref('')
 const alert_message = ref('')
 const { loggedIn } = useUserSession()
+const global_store: any = useGlobalStore()
 
 // SSR-ready
 gtag('event', 'screen_view', {

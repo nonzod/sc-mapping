@@ -23,7 +23,7 @@
 <script lang="ts" setup>
 import * as zod from 'zod';
 import { sha256 } from 'js-sha256';
-
+const global_store: any = useGlobalStore()
 const router = useRouter()
 const { gtag } = useGtag()
 
@@ -53,6 +53,12 @@ async function onSubmit(values: any) {
       password: sha256(values.password)
     }
   })
+
+  // aggiorno il global store
+  global_store.value.loggedIn = true
+  global_store.value.user = response.user
+  global_store.value.session = response.session
+
   } catch(response: any) {
     message.value = 'Login fallito!'
 
