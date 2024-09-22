@@ -64,26 +64,36 @@ export default defineEventHandler(async (event) => {
    */
   const insertAction = async (device_section: string, action: Action) => {
     const device_action: string = action._name
+    var binds: Array<Rebind> = []
 
-    if (action.rebind && action.rebind['_input']) {
-      const input: Array<string> = action.rebind._input.split('_')
-
-      const device_name: string = input[0]
-      input.shift()
-      const device_input: string = input.join(' ')
-
-      if (device_input !== '') {
-        await useDrizzle()
-          .insert(ActionMapTable)
-          .values({
-            device: device_name,
-            section: device_section,
-            button: device_input,
-            action: device_action,
-            profile: uuid
-          })
-      }
+    if (Array.isArray(action.rebind)) {
+      binds = action.rebind
+    } else {
+      binds.push(action.rebind)
     }
+
+    binds.forEach(async (r) => {
+      if (r && r['_input']) {
+
+        const input: Array<string> = r._input.split('_')
+
+        const device_name: string = input[0]
+        input.shift()
+        const device_input: string = input.join(' ')
+
+        if (device_input !== '') {
+          await useDrizzle()
+            .insert(ActionMapTable)
+            .values({
+              device: device_name,
+              section: device_section,
+              button: device_input,
+              action: device_action,
+              profile: uuid
+            })
+        }
+      }
+    })
   }
 
   /**
@@ -150,7 +160,7 @@ type ActionMap = {
 
 type Action = {
   _name: string,
-  rebind: Rebind
+  rebind: Rebind | Array<Rebind>
 }
 
 type Rebind = {
