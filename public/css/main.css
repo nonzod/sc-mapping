@@ -113,9 +113,11 @@
     @apply px-6 py-4;
   }
 
+  tbody.compact th,
   tbody tr.compact th {
     @apply px-3 py-2;
   }
+  tbody.compact td,
   tbody tr.compact td {
     @apply px-3 py-2;
   }
