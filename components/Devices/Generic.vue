@@ -1,44 +1,44 @@
 <template>
   <div>
-    <h2>Generic device</h2>
+    <h2>Generic layout</h2>
 
-    <div class="w-1/2">
-      <p class="font-semibold">{{ props.device.prefix }} : {{ props.device.name }}</p>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col" :class="{ active: activeFilter === 'name' }" class="hover:cursor-pointer" @click="sortBy('name')">
-              Nome
-            </th>
-            <th scope="col" :class="{ active: activeFilter === 'action' }">
-              Action
-            </th>
-            <th scope="col" :class="{ active: activeFilter === 'section' }" class="hover:cursor-pointer" @click="sortBy('section')">
-              Section
-            </th>
-          </tr>
-        </thead>
-        <tbody :key="activeFilter">
-          <tr class="compact with-hover hover:cursor-crosshair" v-for="button in buttons">
-            <th class="hover:text-red-400">
-              {{ button.name }}
-            </th>
-            <td class="hover:text-green-400 hover:font-bold flex flex-col">
-              <div v-for="action in button.actions">{{ action }}</div>
-            </td>
-            <td class="hover:text-green-400">
-              {{ button.section }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <p class="font-semibold">{{ props.device.prefix }} : {{ props.device.name }}</p>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col" :class="{ active: activeFilter === 'name' }" class="hover:cursor-pointer"
+            @click="sortBy('name')">
+            Nome
+          </th>
+          <th scope="col" :class="{ active: activeFilter === 'action' }">
+            Action
+          </th>
+          <th scope="col" :class="{ active: activeFilter === 'section' }" class="hover:cursor-pointer"
+            @click="sortBy('section')">
+            Section
+          </th>
+        </tr>
+      </thead>
+      <tbody :key="activeFilter">
+        <tr class="compact with-hover hover:cursor-crosshair" v-for="button in buttons">
+          <th class="hover:text-red-400">
+            {{ button.name }}
+          </th>
+          <td class="hover:text-green-400 hover:font-bold flex flex-col">
+            <div v-for="action in button.actions">{{ action }}</div>
+          </td>
+          <td class="hover:text-green-400">
+            {{ button.section }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 <script setup lang="ts">
 const props = defineProps(['items', 'device', 'inverted'])
 const activeFilter = ref('Tutti')
-const sortReversed = ref({name: false, section: false})
+const sortReversed = ref({ name: false, section: false })
 
 var buttons: Button[] = []
 
@@ -67,21 +67,21 @@ function sortBy(type: Filters) {
   sortReversed.value[type] = !sortReversed.value[type]
 
   buttons.sort(compare)
-  
+
   activeFilter.value = 'processed'
 
   const uno = sortReversed.value.name
   const due = sortReversed.value.section
 }
 
-function compare(a:Button, b:Button) {
-  if(activeFilter.value === 'Tutti')
+function compare(a: Button, b: Button) {
+  if (activeFilter.value === 'Tutti')
     return 0
   const attivo = activeFilter.value
   // @ts-expect-error
   const reverse = sortReversed.value[activeFilter.value]
 
-  if(reverse) {
+  if (reverse) {
     // @ts-expect-error
     return b[activeFilter.value].localeCompare(a[activeFilter.value]);
   }
