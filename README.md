@@ -3,6 +3,7 @@
 Personalizza e rinomina env in .env
 
 TODO:
+ * Implementazione canvas, al momento [Fabric.js](http://fabricjs.com/)
  * Gestire la visualizzazione degli errori quando non va  buon fine qualcosa nelle API
  * ~~Gestione account utente [link](https://github.com/atinux/nuxt-auth-utils)~~
  * Verifica quella cacata di gtag e consent

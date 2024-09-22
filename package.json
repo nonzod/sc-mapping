@@ -20,6 +20,7 @@
     "better-sqlite3": "^11.2.1",
     "crypto-js": "^4.2.0",
     "drizzle-orm": "^0.33.0",
+    "fabric": "^6.4.2",
     "fast-xml-parser": "^4.4.1",
     "flowbite": "^2.5.1",
     "generate-password": "^1.7.1",
