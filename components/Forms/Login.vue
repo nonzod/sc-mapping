@@ -37,10 +37,10 @@ gtag('event', 'screen_view', {
 
 // Validazione
 const usernameValidator = toTypedSchema(
-  zod.string().min(3, { message: 'Deve essere almeno 3 caratteri' })
+  zod.string().min(3, { message: 'It must be at least 3 characters' })
 );
 const passwordValidator = toTypedSchema(
-  zod.string().min(8, { message: 'Deve essere almeno 8 caratteri' })
+  zod.string().min(8, { message: 'It must be at least 8 characters' })
 );
 
 // Action
