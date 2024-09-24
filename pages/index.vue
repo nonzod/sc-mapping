@@ -7,25 +7,25 @@
     v-if="global_store.loggedIn" />
 
   <section class="w-full mt-5">
-    <h2>Profili caricati</h2>
+    <h2>Profiles</h2>
 
     <table>
       <thead>
         <tr>
           <th scope="col">
-            Tipo
+            Layout
           </th>
           <th scope="col">
-            Profilo
+            Profile name
           </th>
           <th scope="col">
-            Dettagli
+            Bindings
           </th>
           <th scope="col" class="w-1/6">
             Download
           </th>
           <th scope="col" class="w-1/6" v-if="global_store.loggedIn">
-            Elimina
+            Delete
           </th>
         </tr>
       </thead>
@@ -91,7 +91,6 @@ const { data: profiles } = await useFetch('/api/profiles', {
  * Delete Profile
  */
 const deleteProfile = async (uuid: string) => {
-
   try {
     const response: any = await $fetch('/api/profiles/delete/' + uuid, {
       method: 'GET',
@@ -104,7 +103,6 @@ const deleteProfile = async (uuid: string) => {
     alert_message.value = e.statusMessage
     alert_type.value = 'danger'
   }
-
 }
 
 const goToBindings = (uuid: string) => {

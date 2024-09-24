@@ -20,7 +20,7 @@
       <span class="alert danger">{{ message }}</span>
     </div>
 
-    <button type="submit" class="btn-1">Crea profilo</button>
+    <button type="submit" class="btn-1">Save</button>
 
   </Form>
 </template>
@@ -60,7 +60,7 @@ async function onSubmit(values: any) {
       }
     })
   } catch (response: any) {
-    message.value = response.statusMessage
+    message.value = response.message
 
     return {
       statusCode: response.statusCode,

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Turtlebeach Velocity One Fightstick</h2>
-    <p class="text-xs"><i>Slider 1</i> viene mappato su StarCitizen come <i>rotz</i></p>
+    <p class="text-xs"><i>Slider 1</i> is recognized by StarCitizen as <i>rotz</i></p>
     <h3 class="font-bold">{{ device.prefix }} : {{ device.name }}</h3>
 
     <h4 class="font-semibold">AXIS</h4>

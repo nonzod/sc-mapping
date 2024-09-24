@@ -53,12 +53,12 @@
                 <li>
                   <NuxtLink to="/user/list"
                     class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                    Lista utenti</NuxtLink>
+                    Users</NuxtLink>
                 </li>
                 <li>
                   <NuxtLink to="/user/create"
                     class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                    Crea utente</NuxtLink>
+                    Create user</NuxtLink>
                 </li>
               </ul>
               <div class="py-1">

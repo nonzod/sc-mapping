@@ -1,24 +1,20 @@
 <template>
   <div class="p-6 space-y-6">
     <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-      Questo tool esiste perché volevo studiarmi NuxtJs e perché mi piace Star Citizen.
+      This tool exists because I wanted to study NuxtJs and because I like Star Citizen...
     </p>
     <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-      Star Citizen®, Roberts Space Industries® and Cloud Imperium ® are registered trademarks of Cloud Imperium Rights LLC
+      Become a Star Citizen @RobertsSpaceInd and get 5,000 free Credits<br />
+      <NuxtLink to="https://robertsspaceindustries.com/enlist?referral=STAR-KSTN-LFKV">https://robertsspaceindustries.com/enlist?referral=STAR-KSTN-LFKV</NuxtLink>
     </p>
-    <canvas id="canvas" width="300" height="300"></canvas>
+    <p>This is an unofficial Star Citizen fansite, not affiliated with the Cloud Imperium group of companies.
+All content on this site not authored by its host or users are property of their respective owners.
+<NuxtLink to="https://robertsspaceindustries.com/">Star Citizen®, Roberts Space Industries® and Cloud Imperium® are registered trademarks of Cloud Imperium Rights LLC.</NuxtLink></p>
+    <p>
+      Support the project with <NuxtLink to="https://paypal.me/nicolatomassoni?country.x=IT&locale.x=it_IT">PayPal</NuxtLink>
+    </p>
   </div>
 </template>
 <script setup lang="ts">
-import { Canvas, Rect } from 'fabric'; // browser
-
-//const c = new Canvas('canvas')
-const r = new Rect({
-    top: 100,
-    left: 100,
-    width: 60,
-    height: 70,
-    fill: 'red',
-  })
 
 </script>

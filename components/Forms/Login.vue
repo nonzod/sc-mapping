@@ -16,7 +16,7 @@
     </div>
     
 
-    <button type="submit" class="btn-1">Entra!</button>
+    <button type="submit" class="btn-1">Login!</button>
 
   </Form>
 </template>
