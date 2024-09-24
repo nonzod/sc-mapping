@@ -1,2 +1,7 @@
 # Personalizza e rinomia in .env
 PATH_XML="./data/xml"
+NUXT_SESSION_PASSWORD=
+NUXT_PUBLIC_GTAG_ID=
+COOKIEBOT_CBID=
+REFERRER_ID="STAR-DH3N-XQYN"
+REFERRER_URL="https://robertsspaceindustries.com/enlist?referral=STAR-DH3N-XQYN"
