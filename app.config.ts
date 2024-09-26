@@ -8,11 +8,11 @@ export default defineAppConfig({
       },
       {
         name: 'Canvas',
-        label: 'Test layout custom'
+        label: 'Editor Layout'
       },
       {
         name: 'FlightStick',
-        label: 'Turtle Beach Velocityone Flightstick'
+        label: 'CUSTOM - Turtle Beach Velocityone Flightstick'
       }
     ]
   }
