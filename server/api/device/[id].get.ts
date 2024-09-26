@@ -1,6 +1,11 @@
 import { device as DeviceTable } from '~/db/schema'
 import { eq } from "drizzle-orm";
 
+/**
+ * Select Device by id
+ * 
+ * GET device/[id] 
+ */
 export default defineEventHandler(async (event) => {
   try {
     const id_device:string = event.context.params?.id as string;

@@ -48,7 +48,7 @@ export default defineEventHandler(async (event) => {
     } else {
       return createError({
         statusCode: 401,
-        statusMessage: 'Puoi eliminare solo i tuo profili!'
+        statusMessage: 'You can only delete your own profiles!'
       });
     }
 

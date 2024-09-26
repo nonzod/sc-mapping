@@ -6,13 +6,13 @@
       <canvas :id="`c-${device.id}`" class="border-dashed border-2"></canvas>
     </div>
     <div class="w-full">
-      <FormsSaveCanvas :device="device" :canvas="canvas" />
+      <FormsSaveCanvas :device="device" :canvas="canvas" v-if="global_store.loggedIn"/>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import * as fabric from 'fabric';
-
+const global_store: any = useGlobalStore()
 const props = defineProps(['items', 'device'])
 const canvas: any = ref({})
 
