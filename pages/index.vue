@@ -11,7 +11,7 @@
       </svg>
       <span class="sr-only">Info</span>
       <div>
-        <span class="font-medium">Warning!</span> In order to upload your XML file you need an account, request it in <NuxtLink to="https://t.me/sc_device_mapping">Telegram group</NuxtLink>
+        <span class="font-medium">Warning!</span> In order to upload your XML file you need an account, request it in <NuxtLink to="https://t.me/sc_device_mapping" target="_blank">Telegram group</NuxtLink>
       </div>
     </div>
   <section class="w-full mt-5">

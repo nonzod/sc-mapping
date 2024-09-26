@@ -26,8 +26,8 @@
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
       </svg>
 
-      <p class="mb-3 mt-3 font-normal text-gray-500 dark:text-gray-400"><em>I file XML dei profili vengono creati in StarCitizen quando su esporta la configurazione di Keybindings.</em><br />
-        Con questo tool puoi caricare il file XML che trovi su <span class="text-xs">(install drive)\Program Files\Roberts Space Industries\StarCitizen\LIVE\USER\Client\0\Controls\Mappings</span> e consultarlo o creare un layout per visualizzare la disposizione dei pulsanti</p>
+      <p class="mb-3 mt-3 font-normal text-gray-500 dark:text-gray-400"><em>Profile XML files are created in StarCitizen when exports Keybindings configuration.</em><br />
+        With this tool you can load the XML file you find at <span class="text-xs">(install drive)\Program Files\Roberts Space Industries\StarCitizen\LIVE\USER\Client\0Controls\Mappings</span> and consult it or create a layout to visualize the layout of the buttons</p>
       
       <!-- <a href="#" class="inline-flex font-medium items-center text-blue-600 hover:underline">
           See our guideline
