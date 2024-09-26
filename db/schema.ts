@@ -25,7 +25,8 @@ export const device = sqliteTable('device', {
   type: text('type'),
   name: text('name'),
   instance: integer('instance'),
-  prefix: text('prefix')
+  prefix: text('prefix'),
+  canvas: text('canvas')
 }, (device) => ({})
 )
 

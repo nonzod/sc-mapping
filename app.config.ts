@@ -7,6 +7,10 @@ export default defineAppConfig({
         label: 'Generic Joystick'
       },
       {
+        name: 'Canvas',
+        label: 'Test layout custom'
+      },
+      {
         name: 'FlightStick',
         label: 'Turtle Beach Velocityone Flightstick'
       }

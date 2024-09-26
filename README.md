@@ -8,6 +8,8 @@ TODO:
  * ~~Gestione account utente [link](https://github.com/atinux/nuxt-auth-utils)~~
  * Verifica quella cacata di gtag e consent
 
+Compiled with node v22.9.0
+
 ## Errori
 
 Una bozza per fare un verso alle risposte sta su user/login

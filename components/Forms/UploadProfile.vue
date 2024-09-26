@@ -21,6 +21,8 @@
   </Form>
 </template>
 <script setup lang="ts">
+import { Field, Form, ErrorMessage } from 'vee-validate';
+
 const { handleFileInput, files } = useFileStorage()
 const alert_message = defineModel('alert_message')
 const alert_type = defineModel('alert_type')

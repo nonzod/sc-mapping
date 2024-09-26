@@ -4,7 +4,6 @@ import { rmSync } from 'fs'
 
 export default defineEventHandler(async (event) => {
   const { user } = await requireUserSession(event)
-  const client_ip: any = getRequestHeader(event, 'x-forwarded-for')
 
   try {
     const profile_uuid = event.context.params?.uuid as string;

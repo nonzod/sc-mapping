@@ -23,17 +23,11 @@
 <script lang="ts" setup>
 import * as zod from 'zod';
 import { sha256 } from 'js-sha256';
+import { Field, Form, ErrorMessage } from 'vee-validate';
+
 const global_store: any = useGlobalStore()
 const router = useRouter()
-const { gtag } = useGtag()
-
 const message = ref('')
-
-// SSR-ready
-gtag('event', 'screen_view', {
-  app_name: 'sc-mapping',
-  screen_name: 'Login'
-})
 
 // Validazione
 const usernameValidator = toTypedSchema(

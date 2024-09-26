@@ -44,7 +44,7 @@ var buttons: Button[] = []
 
 const filtered = props.items.filter((item: any) => item.device == props.device.prefix)
 
-filtered.forEach((e: any) => {
+filtered.forEach((e: any) => { // Raggruppo tutte le action di un bottone
   const s = buttons.filter((button: Button) => button.hasOwnProperty('name') && button.name == e.button)
 
   if (s.length == 0) {

@@ -25,19 +25,13 @@
   </Form>
 </template>
 <script lang="ts" setup>
+import { Field, Form, ErrorMessage } from 'vee-validate';
 import * as zod from 'zod';
 import { sha256 } from 'js-sha256';
 
 const router = useRouter()
-const { gtag } = useGtag()
 const message = ref('')
 
-// SSR-ready
-gtag('event', 'screen_view', {
-  app_name: 'sc-mapping',
-  screen_name: 'Login'
-})
-sha256('pippo')
 // Validazione
 const emailValidator = toTypedSchema(
   zod.string().email({ message: 'indirizzo non valido' })
