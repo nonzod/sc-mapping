@@ -2,11 +2,14 @@
   <div class="mb-5">
       <span class="alert danger">{{ message }}</span>
   </div>
-  <button type="submit" class="btn-1" @click="onSubmit">Save layout</button>
+  <button type="submit" class="btn-green" @click="onSubmit">Save layout</button>
+  <button type="submit" class="btn-red" @click="onReset">Delete saved</button>
+  <NuxtLink :href="href" @click="onSVG()" download="file.svg" class="btn-1 p-3 hover:no-underline	">Donwload SVG</NuxtLink>
 </template>
 <script lang="ts" setup>
 const props = defineProps(['device', 'canvas'])
 const message = ref('')
+const href = ref('')
 
 // Action
 async function onSubmit(values: any) {
@@ -26,5 +29,32 @@ async function onSubmit(values: any) {
       message: response.message
     }
   }
+}
+
+async function onReset() {
+  try {
+    const response: any = await $fetch(`/api/device/${props.device.id}`, {
+      method: 'POST',
+      body: {
+        canvas: '{}'
+      }
+    })
+
+  } catch (response: any) {
+    message.value = 'Salvataggio fallito!'
+
+    return {
+      statusCode: response.statusCode,
+      message: response.message
+    }
+  }
+}
+
+function onSVG() {
+  //document.open('data:Application/octet-stream,' + props.canvas.toSVG())
+  console.log(props.canvas.toSVG())
+
+  const blob = new Blob([props.canvas.toSVG()], { type: "text/plain" });
+  href.value = window.URL.createObjectURL(blob)
 }
 </script>

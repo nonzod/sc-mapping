@@ -5,11 +5,17 @@
     </p>
     <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
       Become a Star Citizen @RobertsSpaceInd and get 5,000 free Credits<br />
-      <NuxtLink to="https://robertsspaceindustries.com/enlist?referral=STAR-KSTN-LFKV">https://robertsspaceindustries.com/enlist?referral=STAR-KSTN-LFKV</NuxtLink>
+      <NuxtLink to="https://robertsspaceindustries.com/enlist?referral=STAR-KSTN-LFKV">
+        https://robertsspaceindustries.com/enlist?referral=STAR-KSTN-LFKV</NuxtLink>
     </p>
     <p>This is an unofficial Star Citizen fansite, not affiliated with the Cloud Imperium group of companies.
-All content on this site not authored by its host or users are property of their respective owners.
-<NuxtLink to="https://robertsspaceindustries.com/">Star Citizen®, Roberts Space Industries® and Cloud Imperium® are registered trademarks of Cloud Imperium Rights LLC.</NuxtLink></p>
+      All content on this site not authored by its host or users are property of their respective owners.
+      <NuxtLink to="https://robertsspaceindustries.com/">Star Citizen®, Roberts Space Industries® and Cloud Imperium®
+        are registered trademarks of Cloud Imperium Rights LLC.</NuxtLink>
+    </p>
+    <p>
+      Support and requests in <NuxtLink to="https://t.me/sc_device_mapping">Telegram group</NuxtLink>
+    </p>
     <p>
       Support the project with <NuxtLink to="https://paypal.me/nicolatomassoni?country.x=IT&locale.x=it_IT">PayPal</NuxtLink>
     </p>
