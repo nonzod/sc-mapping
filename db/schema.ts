@@ -50,8 +50,12 @@ export const user = sqliteTable('user', {
   id: integer('id').primaryKey(),
   username: text('username').unique(),
   password: text('password'),
+  status: text('status'), // active|pending|banned
   role: text('role'),
   email: text('email').unique(),
   consent: text('consent'),
+  one_time_token: text('one_time_token'),
+  created: integer('created'), // Unix timestamp
+  last_login: integer('created') // Unix timestamp
 }, (user) => ({})
 )

@@ -22,6 +22,20 @@
       "when": 1727347673241,
       "tag": "0002_dazzling_marvel_zombies",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1727448027797,
+      "tag": "0003_loose_iron_monger",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1727449005813,
+      "tag": "0004_last_vapor",
+      "breakpoints": true
     }
   ]
 }

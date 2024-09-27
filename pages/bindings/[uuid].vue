@@ -19,4 +19,9 @@ const { data: devices } = await useFetch(`/api/profiles/device/${route.params.uu
 const DeviceType = defineAsyncComponent(() =>
   import(`../../components/Devices/${profile?.value?.device_type}.vue`)
 )
+
+onMounted(() => {
+  // Track layout
+  useGtm()?.trackView(profile?.value?.device_type, '/bindings/uuid')
+})
 </script>

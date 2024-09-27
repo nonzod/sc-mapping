@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
   try {
     const id_device:string = event.context.params?.id as string;
 
-    return await useDrizzle()
+    return useDrizzle()
       .select()
       .from(DeviceTable)
       .where(eq(DeviceTable.id, id_device))

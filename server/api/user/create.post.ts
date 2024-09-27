@@ -2,6 +2,14 @@ import { user as UserTable } from '~/db/schema'
 
 export default defineEventHandler(async (event) => {
   const { user } = await requireUserSession(event)
+  // Check role, @todo seistema di ACL da implementare
+  if (user.role != 'admin') {
+    throw createError({
+      statusCode: 401,
+      statusMessage: 'Not for you',
+    });
+  }
+
   const { email, username, password } = await readBody<{ email: string, username: string, password: string }>(event)
 
   try {
@@ -15,7 +23,7 @@ export default defineEventHandler(async (event) => {
         consent: "{}"
       }).execute()
 
-  } catch(res_user: any) {
+  } catch (res_user: any) {
     setResponseStatus(event, 500, res_user?.message)
 
     return
