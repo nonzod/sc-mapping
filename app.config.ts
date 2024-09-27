@@ -1,5 +1,6 @@
 export default defineAppConfig({
   default_theme: 'dark',
+  itemPerPage: 25,
   supported_devices: {
     types: [
       {

@@ -5,15 +5,20 @@
 
   <FormsUploadProfile v-model:alert_type="alert_type" v-model:alert_message="alert_message"
     v-if="global_store.loggedIn" />
-    <div class="flex items-center p-4 mb-4 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800" role="alert" v-else>
-      <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-      </svg>
-      <span class="sr-only">Info</span>
-      <div>
-        <span class="font-medium">Warning!</span> In order to upload your XML file you need an account, request it in <NuxtLink to="https://t.me/sc_device_mapping" target="_blank">Telegram group</NuxtLink>
-      </div>
+  <div
+    class="flex items-center p-4 mb-4 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800"
+    role="alert" v-else>
+    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor" viewBox="0 0 20 20">
+      <path
+        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+    </svg>
+    <span class="sr-only">Info</span>
+    <div>
+      <span class="font-medium">Warning!</span> In order to upload your XML file you need an account, request it in
+      <NuxtLink to="https://t.me/sc_device_mapping" target="_blank">Telegram group</NuxtLink>
     </div>
+  </div>
   <section class="w-full mt-5">
     <h2>Profiles</h2>
     <table>
@@ -76,20 +81,69 @@
         </tr>
       </tbody>
     </table>
+
+    <nav aria-label="Page navigation" class="mt-4" v-if="needPagination()">
+      <ul class="flex items-center -space-x-px h-8 text-sm">
+        <!--<li>
+          <a href="#" class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            <span class="sr-only">Previous</span>
+            <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+            </svg>
+          </a>
+        </li>-->
+        <li class="mt-1" v-for="idx in pages">
+          <a href="#" :class="currentPage(idx)" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" @click="goToPage(idx)">{{ idx }}</a>
+        </li>
+        <!--<li>
+          <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            <span class="sr-only">Next</span>
+            <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+            </svg>
+          </a>
+        </li>-->
+      </ul>
+    </nav>
   </section>
 </template>
 <script setup lang="ts">
 const router = useRouter()
 const alert_type = ref('')
 const alert_message = ref('')
+const page = ref(1)
 const global_store: any = useGlobalStore()
+const appConfig = useAppConfig()
+
+const currentPage:string = function(idx:number):string {
+  if(idx == page.value) {
+    return 'bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white'
+  }
+
+  return ''
+}
+/**
+ * 
+ */
+const { data: res_count } = await useFetch('/api/profiles/count')
+const count:number = res_count.value?.count || 1
+const pages = count > appConfig.itemPerPage ? Math.floor(count/appConfig.itemPerPage) : 1
 
 /**
  * List Profiles
  */
 const { data: profiles } = await useFetch('/api/profiles', {
-  watch: [alert_message]
+  method: 'POST',
+  body: {
+    p: page,
+    ps: appConfig.itemPerPage
+  },
+  watch: [alert_message, page]
 })
+
+const needPagination = function() {
+  return count > appConfig.itemPerPage ? true : false
+}
 
 /**
  * Delete Profile
@@ -115,5 +169,9 @@ const goToBindings = (uuid: string) => {
 
 const goToDetails = (uuid: string) => {
   router.push({ name: 'profiles-uuid', params: { uuid: uuid } })
+}
+
+const goToPage = (idx: number) => {
+  page.value = idx
 }
 </script>
