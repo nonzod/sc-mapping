@@ -26,10 +26,12 @@
               class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
               About</NuxtLink>
           </li>
-          <li v-if="!global_store.loggedIn">
+          <li v-if="!global_store.loggedIn" class="flex align-center justify-center">
             <NuxtLink to="/user/login"
               class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-              Login</NuxtLink>
+              Login</NuxtLink><span class="text-white mx-1">/</span><NuxtLink to="/user/register"
+              class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+              Register</NuxtLink>
           </li>
 
           <li v-if="global_store.loggedIn && global_store.user.role != 'admin'">

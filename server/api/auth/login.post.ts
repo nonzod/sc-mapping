@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
   const res_user: any = useDrizzle()
     .select()
     .from(UserTable)
-    .where(and(eq(UserTable.username, username), eq(UserTable.password, password)))
+    .where(and(eq(UserTable.username, username), eq(UserTable.password, password), eq(UserTable.status, 'active')))
     .all()
     .shift()
 
