@@ -22,6 +22,6 @@ export default defineEventHandler(async (event) => {
     throw createError({
       statusCode: 401,
       statusMessage: 'Key is not valid!',
-    });
+    })
   }
 })

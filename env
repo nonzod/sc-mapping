@@ -1,4 +1,5 @@
 # Personalizza e rinomia in .env
+DOMAIN="localhost"
 PATH_XML="./data/xml"
 NUXT_SESSION_PASSWORD=
 COOKIEBOT_CBID=

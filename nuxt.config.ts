@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     }
   },
   css: ['~/public/css/main.css'],
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts', '@zadigetvoltaire/nuxt-gtm', '@nuxt/image', '@vee-validate/nuxt', 'nuxt-file-storage', 'nuxt-auth-utils', 'nuxt-nodemailer'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts', '@zadigetvoltaire/nuxt-gtm', '@nuxt/image', '@vee-validate/nuxt', 'nuxt-file-storage', 'nuxt-auth-utils', 'nuxt-nodemailer', '@nuxtjs/turnstile'],
   tailwindcss: {
     configPath: 'tailwind.config',
     exposeConfig: {
@@ -53,4 +53,13 @@ export default defineNuxtConfig({
       pass: '',
     },
   },
+  turnstile: { // Sistituite dalle var di ambiente
+    secretKey: '',
+    siteKey: ''
+  },
+  runtimeConfig: {
+    turnstile: {
+      secretKey: '',
+    }
+  }
 })
