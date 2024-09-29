@@ -41,7 +41,7 @@ export default defineEventHandler(async (event) => {
           email: email,
           role: "authenticated",
           status: "pending",
-          consent: "{}",
+          consent: "{ privacy: true }",
           one_time_token: onetime,
           created: Date.now()
         }).execute()

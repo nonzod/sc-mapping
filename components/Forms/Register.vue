@@ -16,8 +16,18 @@
       <Field type="email" id="email" name="email" :rules="emailValidator" />
       <ErrorMessage name="email" class="mt-2 text-sm text-red-600 dark:text-red-500" />
     </div>
+    <div class="mb-5">
+      <div class="flex">
+        <Field v-slot="{ field }" name="terms" type="checkbox" :value="false" :unchecked-value="false"
+          :rules="termsValidator">
+          <input type="checkbox" v-bind="field" :value="true" />
+        </Field>
+        <label class="input ml-2" for="terms" v-html="privacy_text"></label>
+      </div>
+      <ErrorMessage name="email" class="mt-2 text-sm text-red-600 dark:text-red-500" />
+    </div>
 
-    <NuxtTurnstile class="mb-5" v-model="token" :options="{ action: 'register' }" v-if="is_production"/>
+    <NuxtTurnstile class="mb-5" v-model="token" :options="{ action: 'register' }" v-if="is_production" />
 
     <div class="mb-5">
       <span class="alert danger">{{ message }}</span>
@@ -31,9 +41,14 @@ import * as zod from 'zod';
 import { sha256 } from 'js-sha256';
 import { Field, Form, ErrorMessage } from 'vee-validate';
 
+const gtm = useGtm()
+
+const privacy_text = `I agree with <a href="${process.env.LINK_PRIVACY_POLICY}" target="_blank">privacy policy</a> and <a href="${process.env.LINK_COOKIE_POLICY}" target="_blank">cookie policy</a>`
+
 const message = ref('')
 const token = ref('')
 const is_production = process.env.NODE_ENV === 'production' //@todo, spostare come globale
+const pl = "pl"
 
 // Validazione
 const usernameValidator = toTypedSchema(
@@ -44,6 +59,12 @@ const passwordValidator = toTypedSchema(
 );
 const emailValidator = toTypedSchema(
   zod.string().email()
+)
+const termsValidator = toTypedSchema(
+  zod.boolean({
+    required_error: "You need to accept the terms",
+    invalid_type_error: "Not valid",
+  })
 )
 
 // Action
@@ -61,13 +82,40 @@ async function onSubmit(values: any) {
 
   } catch (response: any) {
     message.value = response.statusMessage
-
+    triggerGtmEventKO()
     return {
       statusCode: response.statusCode,
       message: response.message
     }
   }
-
+  triggerGtmEventOK()
   message.value = "Please check your inbox and confirm your E-Mail address"
+
+  function triggerGtmEventOK() {
+    gtm?.trackEvent({
+      event: 'Registration OK',
+      category: 'registration',
+      action: 'click',
+      label: 'Registrazione andata a buon fine',
+      value: 1000,
+      noninteraction: false,
+    })
+  }
+
+  function triggerGtmEventKO() {
+    gtm?.trackEvent({
+      event: 'Registration KO',
+      category: 'registration',
+      action: 'click',
+      label: 'Registrazione non è andata a buon fine',
+      value: 1000,
+      noninteraction: false,
+    })
+  }
+
+  onMounted(() => {
+    // Track layout
+    useGtm()?.trackView('Registration', '/user/registration')
+  })
 }
 </script>
