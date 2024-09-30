@@ -1,5 +1,5 @@
 <template>
-  <div class="flex">
+  <div class="flex flex-col md:flex-row">
   <Form class="lg:w-1/2 sm:w-full" v-slot="{ values }" :validation-schema="validation_schema" @submit="onSubmit">
     <div class="mb-5">
       <label class="input" for="device-type">XML File</label>

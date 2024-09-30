@@ -1,6 +1,6 @@
 <template>
   <h2 class="mb-5">Registration</h2>
-  <Form class="lg:w-1/2 sm:w-full" v-slot="{ values }" @submit="onSubmit">
+  <Form class="lg:w-1/2 sm:w-full" v-slot="{ values }" @submit="onSubmit" v-if="!form_sent">
     <div class="mb-5">
       <label class="input" for="username">Username</label>
       <Field type="text" id="username" name="username" :rules="usernameValidator" />
@@ -35,6 +35,9 @@
 
     <button type="submit" class="btn-1">Sign-In!</button>
   </Form>
+  <div v-else>
+    <p>Registration completed, please check your inbox and confirm your E-Mail address</p>
+  </div>
 </template>
 <script lang="ts" setup>
 import * as zod from 'zod';
@@ -48,7 +51,7 @@ const privacy_text = `I agree with <a href="${process.env.LINK_PRIVACY_POLICY}" 
 const message = ref('')
 const token = ref('')
 const is_production = process.env.NODE_ENV === 'production' //@todo, spostare come globale
-const pl = "pl"
+const form_sent = ref(false)
 
 // Validazione
 const usernameValidator = toTypedSchema(
@@ -88,8 +91,10 @@ async function onSubmit(values: any) {
       message: response.message
     }
   }
+
   triggerGtmEventOK()
-  message.value = "Please check your inbox and confirm your E-Mail address"
+  
+  form_sent.value = true
 
   function triggerGtmEventOK() {
     gtm?.trackEvent({

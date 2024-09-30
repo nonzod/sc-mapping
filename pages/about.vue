@@ -13,6 +13,9 @@
       <NuxtLink to="https://robertsspaceindustries.com/" target="_blank">Star Citizen®, Roberts Space Industries® and Cloud Imperium®
         are registered trademarks of Cloud Imperium Rights LLC.</NuxtLink>
     </p>
+    <p class="text-lg">
+      <strong>Tutorial:</strong> <NuxtLink to="https://support.robertsspaceindustries.com/hc/en-us/articles/360000183328-Create-export-and-import-custom-profiles" target="_blank">Create, export, and import custom profiles</NuxtLink> from Roberts Space Industries Knowledge Base.
+    </p>
     <p>
       Support and requests in <NuxtLink to="https://t.me/sc_device_mapping" target="_blank">Telegram group</NuxtLink>
     </p>

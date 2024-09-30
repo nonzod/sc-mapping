@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>{{ device.type }} {{ device.instance }}</h2>
+    <h2 class="mb-2">{{ device.type }} {{ device.instance }}</h2>
 
     <p class="font-semibold">{{ device.name }}</p>
     <table>
