@@ -1,5 +1,5 @@
 export function useFlowbite(callback: any) {
-  if (process.client) {
+  if (import.meta.client) {
     import('flowbite').then((flowbite) => {
       callback(flowbite);
     });
