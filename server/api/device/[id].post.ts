@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
   try {
     // @ts-expect-error
     const id_device:number = event.context.params?.id as number;
-    const { canvas } = await readBody<{ canvas: string }>(event)
+    const { canvas, canvas_grid } = await readBody<{ canvas: string, canvas_grid: string }>(event)
     var res_profile:any = false
 
     const res_device = useDrizzle()
@@ -37,7 +37,8 @@ export default defineEventHandler(async (event) => {
       return await useDrizzle()
         .update(DeviceTable)
         .set({
-          canvas: canvas.toString()
+          canvas: canvas.toString(),
+          canvas_grid: canvas_grid.toString()
         })
         .where(eq(DeviceTable.id, id_device))
     } else {

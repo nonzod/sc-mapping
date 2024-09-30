@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-full">
     <h2 class="mb-2">{{ device.type }} {{ device.instance }}</h2>
 
     <p class="font-semibold">{{ device.name }}</p>

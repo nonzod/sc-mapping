@@ -1,0 +1,1 @@
+ALTER TABLE `device` ADD `canvas_grid` text;

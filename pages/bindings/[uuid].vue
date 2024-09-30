@@ -26,17 +26,19 @@
 </template>
 <script setup lang="ts">
 const route = useRoute()
+const device = ref({})
 const { data: profile } = await useFetch(`/api/profiles/${route.params.uuid}`)
 const { data: items, status } = await useFetch(`/api/profiles/binding/${route.params.uuid}`)
-const { data: devices } = await useFetch(`/api/profiles/device/${route.params.uuid}`)
-
-const device = ref({})
+const { data: devices } = await useFetch(`/api/profiles/device/${route.params.uuid}`, {
+  watch: [device]
+})
 
 const DeviceType = defineAsyncComponent(() =>
   import(`../../components/Devices/${profile?.value?.device_type}.vue`)
 )
 
 function changeTab(idx:number) {
+  device.value = 0 // trigger fetch
   device.value = devices.value ? devices.value[idx] : {}
 }
 

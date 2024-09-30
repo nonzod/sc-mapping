@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-full">
     <h2 class="mb-2">{{ device.type }} {{ device.instance }}</h2>
     <p class="text-xs"><i>Slider 1</i> is recognized by StarCitizen as <i>rotz</i></p>
     <p class="font-semibold">{{ device.name }}</p>

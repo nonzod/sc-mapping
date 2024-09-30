@@ -93,17 +93,15 @@ async function onSubmit(values: any) {
   }
 
   triggerGtmEventOK()
-  
+
   form_sent.value = true
 
   function triggerGtmEventOK() {
     gtm?.trackEvent({
-      event: 'Registration OK',
+      event: 'sign_up',
+      method: 'Form',
       category: 'registration',
-      action: 'click',
       label: 'Registrazione andata a buon fine',
-      value: 1000,
-      noninteraction: false,
     })
   }
 

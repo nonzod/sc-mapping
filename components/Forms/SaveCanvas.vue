@@ -7,7 +7,7 @@
   <NuxtLink :href="href" @click="onSVG()" download="file.svg" class="btn-1 p-3 hover:no-underline	">Donwload SVG</NuxtLink>
 </template>
 <script lang="ts" setup>
-const props = defineProps(['device', 'canvas'])
+const props = defineProps(['device', 'canvas', 'canvas_grid'])
 const message = ref('')
 const href = ref('')
 
@@ -17,7 +17,8 @@ async function onSubmit(values: any) {
     const response: any = await $fetch(`/api/device/${props.device.id}`, {
       method: 'POST',
       body: {
-        canvas: JSON.stringify(props.canvas.toJSON())
+        canvas: JSON.stringify(props.canvas.toJSON()),
+        canvas_grid: JSON.stringify(props.canvas_grid)
       }
     })
 
@@ -36,7 +37,8 @@ async function onReset() {
     const response: any = await $fetch(`/api/device/${props.device.id}`, {
       method: 'POST',
       body: {
-        canvas: '{}'
+        canvas: '{}',
+        canvas_grid: '{}'
       }
     })
 
