@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2>Generic layout</h2>
+    <h2>{{ device.type }} {{ device.instance }}</h2>
 
-    <p class="font-semibold">{{ props.device.prefix }} : {{ props.device.name }}</p>
+    <p class="font-semibold">{{ device.name }}</p>
     <table>
       <thead>
         <tr>

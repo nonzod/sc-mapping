@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2>Turtlebeach Velocity One Fightstick</h2>
+    <h2 class="mb-2">{{ device.type }} {{ device.instance }}</h2>
     <p class="text-xs"><i>Slider 1</i> is recognized by StarCitizen as <i>rotz</i></p>
-    <h3 class="font-bold">{{ device.prefix }} : {{ device.name }}</h3>
+    <p class="font-semibold">{{ device.name }}</p>
 
     <h4 class="font-semibold">AXIS</h4>
     <ul class="">

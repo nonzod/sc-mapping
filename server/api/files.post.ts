@@ -122,7 +122,7 @@ export default defineEventHandler(async (event) => {
     const res: any = await useDrizzle()
       .select({ count: count() })
       .from(ActionMapTable)
-      .where(and(eq(ActionMapTable.profile, uuid), like(ActionMapTable.device, `js${d.instance}%`)))
+      .where(and(eq(ActionMapTable.profile, uuid), like(ActionMapTable.device, `${d.prefix}${d.instance}%`)))
 
     if (res[0].count > 0) {
       detected_devices++
@@ -133,8 +133,8 @@ export default defineEventHandler(async (event) => {
           profile: uuid,
           name: d.product,
           instance: d.instance,
-          prefix: `js${d.instance}`,
-          type: 'joystick'
+          prefix: `${d.prefix}${d.instance}`,
+          type: d.type
         })
     }
   })

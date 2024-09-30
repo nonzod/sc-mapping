@@ -13,7 +13,7 @@ export function parseXml(filepath: string) {
   const json = parser.parse(xmlFile);
 
   let objProfileInfo: { _profileName: string, _version: number, _rebindVersion: number, _optionsVersion: number, options: Array<any>, actionmap: Array<any> }
-  let devices: Array<{ instance: number, product: string }> = []
+  let devices: Array<{ instance: number, product: string, type: string, prefix: string }> = []
 
   // Detect XML type
   if (json.ActionMaps.hasOwnProperty('ActionProfiles')) {
@@ -23,10 +23,25 @@ export function parseXml(filepath: string) {
   }
 
   objProfileInfo.options.forEach((e) => {
-    if (e._type == 'joystick' && e.hasOwnProperty('_Product')) {
+    var prefix:string = ''
+    switch(e._type) {
+      case 'joystick':
+        prefix = 'js';
+        break;
+      case 'keyboard':
+        prefix = 'kb'
+        break;
+      case 'gamepad':
+        prefix = 'gp'
+        break;
+    }
+
+    if (e.hasOwnProperty('_Product')) { // e._type == 'joystick' &&
       devices.push({
         instance: e._instance,
-        product: e._Product
+        type: e._type,
+        product: e._Product,
+        prefix: prefix
       })
     }
   })

@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <h3 class="text-center mb-2">{{ device.prefix }}</h3>
+    <h3 class="text-center mb-2">{{ device.type }} {{ device.instance }}</h3>
     <p class="text-center text-xs">{{ device.name }}</p>
     <div :id="`container-${device.id}`">
       <canvas :id="`c-${device.id}`" class="border-dashed border-2"></canvas>
