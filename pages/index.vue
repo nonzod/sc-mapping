@@ -5,18 +5,30 @@
 
   <FormsUploadProfile v-model:alert_type="alert_type" v-model:alert_message="alert_message"
     v-if="global_store.loggedIn" />
-  <div
-    class="flex items-center p-4 mb-4 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800"
-    role="alert" v-else>
-    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-      fill="currentColor" viewBox="0 0 20 20">
-      <path
-        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-    </svg>
-    <span class="sr-only">Info</span>
-    <div>
-      <span class="font-medium">Warning!</span> In order to upload your XML file you need an account: <NuxtLink to="/user/register">register here</NuxtLink>
+  <div v-else>
+    <div
+      class="flex items-center p-4 mb-4 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800"
+      role="alert">
+      <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor" viewBox="0 0 20 20">
+        <path
+          d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+      </svg>
+      <span class="sr-only">Info</span>
+      <div>
+        <span class="font-medium">Warning!</span> In order to upload your XML file you need an account: <NuxtLink
+          to="/user/register">register here</NuxtLink>
+      </div>
     </div>
+    <p>This tool is used to display your button configuration for Star Citizen. By uploading your XML file, you can
+      view the mapping in various ways:</p>
+    <ul>
+      <li>As a table</li>
+      <li>As a customizable canvas, you can save and load your personalized layout</li>
+      <li>As a specific layout for your joystick (not yet available)</li>
+    </ul>
+    <p class="mt-3">In the future, it will also be possible to perform button mapping and other profile modification activities.</p>
+    <a href="/user/register" class="btn-yellow m-auto block w-fit">register now</a>
   </div>
   <section class="w-full mt-5">
     <h2>Profiles</h2>
@@ -92,7 +104,9 @@
           </a>
         </li>-->
         <li class="mt-1" v-for="idx in pages">
-          <a href="#" :class="currentPage(idx)" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" @click="goToPage(idx)">{{ idx }}</a>
+          <a href="#" :class="currentPage(idx)"
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            @click="goToPage(idx)">{{ idx }}</a>
         </li>
         <!--<li>
           <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
@@ -114,8 +128,8 @@ const page = ref(1)
 const global_store: any = useGlobalStore()
 const appConfig = useAppConfig()
 
-const currentPage:string = function(idx:number):string {
-  if(idx == page.value) {
+const currentPage: string = function (idx: number): string {
+  if (idx == page.value) {
     return 'bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white'
   }
 
@@ -125,8 +139,8 @@ const currentPage:string = function(idx:number):string {
  * 
  */
 const { data: res_count } = await useFetch('/api/profiles/count')
-const count:number = res_count.value?.count || 1
-const pages = count > appConfig.itemPerPage ? Math.floor(count/appConfig.itemPerPage) : 1
+const count: number = res_count.value?.count || 1
+const pages = count > appConfig.itemPerPage ? Math.floor(count / appConfig.itemPerPage) : 1
 
 /**
  * List Profiles
@@ -140,7 +154,7 @@ const { data: profiles } = await useFetch('/api/profiles', {
   watch: [alert_message, page]
 })
 
-const needPagination = function() {
+const needPagination = function () {
   return count > appConfig.itemPerPage ? true : false
 }
 

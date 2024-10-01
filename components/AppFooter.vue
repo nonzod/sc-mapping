@@ -8,7 +8,7 @@
         of Cloud Imperium Rights LLC</p>
         <p v-html="privacy_text"></p>
     </div>
-    <img class="w-40 h-40 rounded-full" src="/imgs/MadeByTheCommunity_White.png" alt="Rounded avatar" height="100%">
+    <img class="w-40 h-40 rounded-full" src="/imgs/MadeByTheCommunity_White-160x160.webp" alt="Rounded avatar" height="100%">
   </footer>
 </template>
 <script setup lang="ts">

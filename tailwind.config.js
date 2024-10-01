@@ -31,6 +31,7 @@ export default {
     fontFamily: {
       sans: ['Roboto', 'sans-serif'],
       serif: ['serif'],
+      display: ['swap']
     },
     extend: {},
   },

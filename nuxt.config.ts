@@ -8,7 +8,13 @@ export default defineNuxtConfig({
     }
   },
   css: ['~/public/css/main.css'],
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts', '@zadigetvoltaire/nuxt-gtm', '@nuxt/image', '@vee-validate/nuxt', 'nuxt-file-storage', 'nuxt-auth-utils', 'nuxt-nodemailer', '@nuxtjs/turnstile'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts', '@zadigetvoltaire/nuxt-gtm', '@nuxt/image', '@vee-validate/nuxt', 'nuxt-file-storage', 'nuxt-auth-utils', 'nuxt-nodemailer', '@nuxtjs/turnstile', '@nuxtjs/seo'],
+  site: {
+    url: process.env.DOMAIN,
+    name: 'SC Mappigs Tool',
+    description: 'Tool for creating layout visualizations',
+    defaultLocale: 'en', // not needed if you have @nuxtjs/i18n installed
+  },
   tailwindcss: {
     configPath: 'tailwind.config',
     exposeConfig: {
