@@ -18,17 +18,17 @@
           <th scope="col" class="w-1/6">
             XML
           </th>
-          <th scope="col" class="w-1/6" v-if="global_store.user.role == 'admin'">
+          <th scope="col" class="w-1/6" v-if="is_admin">
             Delete
           </th>
         </tr>
       </thead>
       <tbody>
         <tr class="with-hover hover:cursor-pointer" v-for="profile in profiles">
-          <th scope="row" @click="goToBindings(profile.uuid)">
+          <th scope="row" @click="navigateTo({path: `/bindings/${profile.uuid}`})">
             {{ profile.name }}
           </th>
-          <th scope="row" @click="goToDetails(profile.uuid)">
+          <th scope="row" @click="navigateTo({path: `/profiles/${profile.uuid}`})">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
               <path stroke="#057A55" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
             </svg>
@@ -43,7 +43,7 @@
               </svg>
             </NuxtLink>
           </td>
-          <td @click="deleteProfile(profile.uuid)" v-if="global_store.user.role == 'admin'">
+          <td @click="deleteProfile(profile.uuid)" v-if="is_admin">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
               width="24" height="24" fill="none" viewBox="0 0 24 24">
               <path stroke="#E02424" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -87,6 +87,7 @@ const alert_message = ref('')
 const page = ref(1)
 const global_store: any = useGlobalStore()
 const appConfig = useAppConfig()
+const is_admin = global_store.value.loggedIn && global_store.value.user.role == 'admin' ? true : false
 
 const currentPage: string = function(idx: number): string {
   if (idx == page.value) {
@@ -134,16 +135,6 @@ const deleteProfile = async (uuid: string) => {
     alert_message.value = e.statusMessage
     alert_type.value = 'danger'
   }
-}
-
-const goToBindings = (uuid: string) => {
-  return navigateTo({path: `/bindings/${uuid}`})
-  //router.push({ name: 'bindings-uuid', params: { uuid: uuid } })
-}
-
-const goToDetails = (uuid: string) => {
-  return navigateTo({path: `/profiles/${uuid}`})
-  //router.push({ name: 'profiles-uuid', params: { uuid: uuid } })
 }
 
 const goToPage = (idx: number) => {

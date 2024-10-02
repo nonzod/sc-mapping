@@ -22,7 +22,7 @@
     </div>
     <!-- Form Save Canvas -->
     <div class="w-full">
-      <FormsSaveCanvas :device="device" :canvas="canvas" :canvas_grid="gridObj" v-if="global_store.loggedIn" />
+      <FormsSaveCanvas :device="device" :canvas="canvas" :canvas_grid="gridObj" v-if="canSave()" />
     </div>
   </div>
   <!-- Grid Settings Modal -->
@@ -93,8 +93,8 @@
 import * as fabric from 'fabric';
 import { Field, Form, ErrorMessage } from 'vee-validate';
 
-const global_store: any = useGlobalStore()
-const props = defineProps(['items', 'device'])
+
+const props = defineProps(['items', 'device', 'user_id'])
 const canvas: any = ref({})
 const modal_id = `grid-settings-modal-${props.device.id}`
 const canvas_grid = props.device.canvas_grid ? JSON.parse(props.device.canvas_grid) : {}
@@ -140,6 +140,18 @@ const changeGrid = function (ch: number, cw: number, gc: number, gr: number) {
 
 const submitForm = function (values: any) {
   changeGrid(values.cellH, values.cellW, values.gridCols, values.gridRows)
+}
+
+const canSave = function() {
+  const global_store: any = useGlobalStore()
+  console.log(global_store.value.loggedIn)
+  if(global_store.value.loggedIn) {
+    if(global_store.value.user.id == props.user_id) {
+      return true
+    }
+  }
+
+  return false
 }
 
 async function initCanvas(noCache: boolean = false) {

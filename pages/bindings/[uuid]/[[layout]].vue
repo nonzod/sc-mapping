@@ -50,7 +50,7 @@
 
 
     <div class="flex">
-      <component :is="DeviceType" :items="items" :device="device" :key="device.id" />
+      <component :is="DeviceType" :items="items" :device="device" :user_id="profile?.user_id" :key="device.id" />
     </div>
   </div>
 </template>
