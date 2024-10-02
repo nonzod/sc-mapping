@@ -50,7 +50,7 @@ export default defineEventHandler(async (event) => {
       uuid: uuid,
       name: profile.profileName,
       user_id: user.id,
-      device_type: device_type,
+      device_type: 'Generic',
       version: profile.version,
       rebind_version: profile.rebindVersion,
       options_version: profile.optionsVersion,

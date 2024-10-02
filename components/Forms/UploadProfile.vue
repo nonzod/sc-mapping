@@ -8,7 +8,7 @@
       </Field>
       <ErrorMessage name="file_xml" class="mt-2 text-sm text-red-600 dark:text-red-500" />
     </div>
-    <div class="mb-5">
+    <!--<div class="mb-5">
       <label class="select" for="device-type">Layout type</label>
       <Field as="select" id="device-type" name="device_type">
         <option value="">Select</option>
@@ -16,9 +16,10 @@
           device_type.label }}</option>
       </Field>
       <ErrorMessage name="device_type" class="mt-2 text-sm text-red-600 dark:text-red-500" />
+    </div>-->
+    <div class="mb-0">
+      <button type="submit" class="btn-yellow">Upload</button>
     </div>
-
-    <button type="submit" class="btn-1">Upload</button>
   </Form>
   <div class="lg:w-1/2 sm:w-full pl-5">
     <div class="max-w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -45,16 +46,9 @@ import { Field, Form, ErrorMessage } from 'vee-validate';
 const { handleFileInput, files } = useFileStorage()
 const alert_message = defineModel('alert_message')
 const alert_type = defineModel('alert_type')
-const appConfig = useAppConfig()
 
 // Validazione
 const validation_schema = {
-  device_type: (value: string) => {
-    if (value)
-      return true;
-
-    return 'Select layout';
-  },
   file_xml: (value: File) => {
     if (value && value.type == "text/xml") {
       return true

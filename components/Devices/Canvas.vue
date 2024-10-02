@@ -3,7 +3,18 @@
     <h3 class="text-center mb-2">{{ device.type }} {{ device.instance }}</h3>
     <p class="text-center text-xs">{{ device.name }}</p>
     <div>
-      <button :data-modal-target="modal_id" :data-modal-show="modal_id" class="btn-1" type="button">Config Grid</button>
+      <button :data-modal-target="modal_id" :data-modal-show="modal_id" class="flex gap-2 text-yellow-400"
+        type="button">
+        <svg class="w-[24px] h-[24px] text-gray-800 dark:text-white" aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="#723B13" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z" />
+          <path stroke="#723B13" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+        </svg>
+        <p class="text-yellow-400">settings</p>
+      </button>
+
     </div>
     <!-- Canvas -->
     <div :id="`container-${device.id}`">
@@ -131,7 +142,7 @@ const submitForm = function (values: any) {
   changeGrid(values.cellH, values.cellW, values.gridCols, values.gridRows)
 }
 
-async function initCanvas(noCache:boolean = false) {
+async function initCanvas(noCache: boolean = false) {
   var top_current: number = 0
   var left_current: number = 0
 
@@ -183,23 +194,27 @@ async function initCanvas(noCache:boolean = false) {
       cElements.push(new fabric.Rect({
         width: gridObj.value.cellW,
         height: gridObj.value.cellH,
-        fill: 'rgb(15,44,62)'
+        fill: '#082f49',
+        rx: 10,
+        ry: 10,
+        hasBorders: false
       }))
 
       const top = getTop()
       const left = getLeft()
-
       // Testo bottone
       cElements.push(new fabric.Textbox(el.button, {
         fontFamily: 'Roboto',
         fontSize: 12,
-        fill: 'rgb(168,179,189)',
-        width: gridObj.value.cellW,
+        fontWeight: 'bold',
+        fill: buttonColor(el.button, el.device),
+        width: gridObj.value.cellW - 20,
         lineHeight: 2,
         textAlign: 'center',
         top: 0,
-        left: 0,
-        backgroundColor: 'rgb(6,74,124)'
+        left: 10,
+        backgroundColor: '#0f172a',
+        hasBorders: false
       }))
 
       // Lista action nel button @todo da rifare
@@ -267,5 +282,32 @@ type Button = {
   name: string,
   actions?: string[],
   section: string
+}
+
+// @todo questa cosa è da fare decentemente
+function buttonColor(button: string, type: string): string {
+  if (type.startsWith('js')) {
+    if (button.startsWith('button')) {
+      return '#F98080'
+    } else if (button.startsWith('hat')) {
+      return '#FDF6B2'
+    } else if (button.startsWith('rot')) {
+      return '#a8a29e'
+    } else if (button.startsWith('slider')) {
+      return '#31C48D'
+    } else if (button.startsWith('rctrl')) {
+      return '#31C48D'
+    } else {
+      return '#a78bfa'
+    }
+  } else {
+    if (button.startsWith('rctrl')) {
+      return '#F98080'
+    } else if (button.startsWith('ralt')) {
+      return '#FDF6B2'
+    } else {
+      return '#a78bfa'
+    }
+  }
 }
 </script>

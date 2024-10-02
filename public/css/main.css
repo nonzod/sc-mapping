@@ -32,7 +32,7 @@
   }
 
   main a {
-    @apply text-blue-600 dark:text-blue-500 hover:underline;
+    @apply text-blue-600 dark:text-blue-500 hover:underline no-underline;
   }
 
   nav a {
