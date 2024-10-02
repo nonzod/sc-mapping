@@ -142,11 +142,11 @@ const submitForm = function (values: any) {
   changeGrid(values.cellH, values.cellW, values.gridCols, values.gridRows)
 }
 
-const canSave = function() {
+const canSave = function () {
   const global_store: any = useGlobalStore()
   console.log(global_store.value.loggedIn)
-  if(global_store.value.loggedIn) {
-    if(global_store.value.user.id == props.user_id) {
+  if (global_store.value.loggedIn) {
+    if (global_store.value.user.id == props.user_id) {
       return true
     }
   }
@@ -309,6 +309,20 @@ function buttonColor(button: string, type: string): string {
       return '#31C48D'
     } else if (button.startsWith('rctrl')) {
       return '#31C48D'
+    } else {
+      return '#a78bfa'
+    }
+  } else if (type.startsWith('gp')) {
+    if (button.startsWith('shoulderl')) {
+      return '#F98080'
+    } else if (button.startsWith('shoulderr')) {
+      return '#FF8A4C'
+    } else if (button.startsWith('triggerr')) {
+      return '#FDF6B2'
+    } else if (button.startsWith('triggerl')) {
+      return '#ecfccb'
+    } else if (button.startsWith('thumbr')) {
+      return '#3f6212'
     } else {
       return '#a78bfa'
     }
