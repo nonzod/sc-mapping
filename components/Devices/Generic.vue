@@ -25,7 +25,11 @@
             {{ button.name }}
           </th>
           <td class="hover:text-green-400 hover:font-bold flex flex-col">
-            <div v-for="action in button.actions">{{ action }}</div>
+            <div v-for="action in button.actions">
+              {{ action.name }}
+              <span class="badge badge-purple ml-2" v-if="action.activation_mode"> {{ action.activation_mode }}</span>
+              <span class="badge badge-pink ml-2" v-if="action.multi_tap"> multitap: {{ action.multi_tap }}</span>
+            </div>
           </td>
           <td class="hover:text-green-400">
             {{ button.section }}
@@ -42,22 +46,31 @@ const sortReversed = ref({ name: false, section: false })
 
 var buttons: Button[] = []
 
-const filtered = props.items.filter((item: any) => item.device == props.device.prefix)
+const filtered: [ActionMapDbRow] = props.items.filter((item: any) => item.device == props.device.prefix)
 
-filtered.forEach((e: any) => { // Raggruppo tutte le action di un bottone
+filtered.forEach((e: ActionMapDbRow) => { // Raggruppo tutte le action di un bottone
+  var formatted_actions:Array<FormattedActionMap> = []
+
+  // Scompongo le proprietà della action
+  e.action.split(',').forEach((a) => {
+    var action_props:Array<string> = a.split(':')
+
+    formatted_actions.push({
+      name: action_props.shift()?.replace('v_', '').replaceAll('_', ' ').toUpperCase(),
+      activation_mode: action_props.shift(),
+      multi_tap: action_props.shift()
+    })
+  })
+
+  // Check vuoto
   const s = buttons.filter((button: Button) => button.hasOwnProperty('name') && button.name == e.button)
-
   if (s.length == 0) {
     buttons.push({
-      name: e.button,
-      section: e.section,
-      actions: []
+      name: e.button.toUpperCase(),
+      section: e.section.replaceAll('_', ' ').toUpperCase(),
+      actions: formatted_actions
     })
   }
-
-  const idx = buttons.findIndex(elem => elem['name'] == e.button)
-  // @ts-ignore
-  buttons[idx].actions.push(e.action)
 
   buttons.sort(compare)
 })
@@ -69,31 +82,22 @@ function sortBy(type: Filters) {
   buttons.sort(compare)
 
   activeFilter.value = 'processed'
-
-  const uno = sortReversed.value.name
-  const due = sortReversed.value.section
 }
 
 function compare(a: Button, b: Button) {
   if (activeFilter.value === 'Tutti')
     return 0
   const attivo = activeFilter.value
-  // @ts-expect-error
+  // @ts-ignore
   const reverse = sortReversed.value[activeFilter.value]
 
   if (reverse) {
-    // @ts-expect-error
+    // @ts-ignore
     return b[activeFilter.value].localeCompare(a[activeFilter.value]);
   }
-
-  // @ts-expect-error
+  // @ts-ignore
   return a[activeFilter.value].localeCompare(b[activeFilter.value]);
 }
 
-type Button = {
-  name: string,
-  actions?: string[],
-  section: string
-}
 type Filters = "name" | "section"
 </script>

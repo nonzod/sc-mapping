@@ -75,8 +75,6 @@
 
 </template>
 <script setup lang="ts">
-import type { ActionMapDbRow } from '~/server/utils/types';
-
 const props = defineProps(['items', 'device', 'inverted'])
 const labels: any = {
   1: '',

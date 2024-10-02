@@ -12,8 +12,8 @@ export function parseXml(filepath: string) {
   const xmlFile = readFileSync(`${process.cwd()}/${filepath}`, 'utf8');
   const json = parser.parse(xmlFile);
 
-  let objProfileInfo: { _profileName: string, _version: number, _rebindVersion: number, _optionsVersion: number, options: Array<any>, actionmap: Array<any> }
-  let devices: Array<{ instance: number, product: string, type: string, prefix: string }> = []
+  let objProfileInfo:ProfileInfo
+  let devices: Array<Device> = []
 
   // Detect XML type
   if (json.ActionMaps.hasOwnProperty('ActionProfiles')) {
@@ -33,6 +33,9 @@ export function parseXml(filepath: string) {
         break;
       case 'gamepad':
         prefix = 'gp'
+        break;
+      case 'mouse':
+        prefix = 'mo'
         break;
     }
 

@@ -89,7 +89,9 @@ export default defineEventHandler(async (event) => {
               section: device_section,
               button: device_input,
               action: device_action,
-              profile: uuid
+              profile: uuid,
+              multi_tap: r._multiTap,
+              activation_mode: r._activationMode
             })
         }
       }
@@ -151,18 +153,3 @@ export default defineEventHandler(async (event) => {
     uuid: uuid
   }
 })
-
-
-type ActionMap = {
-  _name: string,
-  action: Action[]
-}
-
-type Action = {
-  _name: string,
-  rebind: Rebind | Array<Rebind>
-}
-
-type Rebind = {
-  _input: string
-}

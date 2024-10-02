@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
         device: ActionMapTable.device,
         section: ActionMapTable.section,
         button: ActionMapTable.button,
-        action: sql<string>`GROUP_CONCAT(${ActionMapTable.action})`,
+        action: sql<string>`GROUP_CONCAT(concat(${ActionMapTable.action}, ':', ${ActionMapTable.activation_mode}, ':', ${ActionMapTable.multi_tap}))`,
       })
       .from(ActionMapTable)
       .where(eq(ActionMapTable.profile, profile_uuid))

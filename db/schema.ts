@@ -26,6 +26,8 @@ export const device = sqliteTable('device', {
   name: text('name'),
   instance: integer('instance'),
   prefix: text('prefix'),
+  options: text('options'),
+  device_options: text('device_options'),
   canvas: text('canvas'),
   canvas_grid: text('canvas_grid')
 }, (device) => ({})
@@ -41,6 +43,8 @@ export const actionmap = sqliteTable('actionmap', {
   section: text('section'),
   button: text('button'),
   action: text('action'),
+  activation_mode: text('activation_mode'),
+  multi_tap: integer('multi_tap')
 }, (actionmap) => ({})
 )
 

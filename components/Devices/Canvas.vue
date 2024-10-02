@@ -93,7 +93,6 @@
 import * as fabric from 'fabric';
 import { Field, Form, ErrorMessage } from 'vee-validate';
 
-
 const props = defineProps(['items', 'device', 'user_id'])
 const canvas: any = ref({})
 const modal_id = `grid-settings-modal-${props.device.id}`
