@@ -145,7 +145,7 @@ const deleteProfile = async (uuid: string) => {
       method: 'GET',
     })
 
-    alert_message.value = `${response.profile} (${response.uuid}) Eliminato!`
+    alert_message.value = `${response.profile} (${response.uuid}) deleted!`
     alert_type.value = 'success'
 
   } catch (e: any) {

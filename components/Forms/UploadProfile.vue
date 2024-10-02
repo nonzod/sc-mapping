@@ -73,7 +73,7 @@ async function onSubmit(values: any) {
   if (!response)
     return
 
-  alert_message.value = `${response.profile} (${response.uuid}) Creato!`
+  alert_message.value = `${response.profile} (${response.uuid}) created!`
   alert_type.value = 'success'
 }
 </script>
