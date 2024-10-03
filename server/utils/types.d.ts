@@ -14,8 +14,8 @@ export type ActionMap = {
 
 export type FormattedActionMap = {
   name: string,
-  activation_mode: string,
-  multi_tap: number
+  activation_mode: string|null,
+  multi_tap: number|null
 }
 
 export type Action = {
@@ -25,8 +25,8 @@ export type Action = {
 
 export type Rebind = {
   _input: string
-  _multiTap: string,
-  _activationMode: number
+  _multiTap: string|null,
+  _activationMode: number|null
 }
 
 export type ProfileInfo = {
@@ -47,6 +47,6 @@ export type Device = {
 
 export type Button = {
   name: string,
-  actions?: string[],
+  actions: string[]|null,
   section: string
 }
