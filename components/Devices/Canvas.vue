@@ -214,7 +214,7 @@ async function initCanvas(noCache: boolean = false) {
       const top = getTop()
       const left = getLeft()
       // Testo bottone
-      cElements.push(new fabric.Textbox(el.button, {
+      cElements.push(new fabric.Textbox(el.button.toUpperCase(), {
         fontFamily: 'Roboto',
         fontSize: 12,
         fontWeight: 'bold',
@@ -230,8 +230,15 @@ async function initCanvas(noCache: boolean = false) {
 
       // Lista action nel button @todo da rifare
       var i = 1
+      var formatted_actions:Array<FormattedActionMap> = []
+
       el.action.split(',').forEach((action: string) => {
-        tElements.push(new fabric.Textbox(action.replace('v_', ''), {
+        var action_props:Array<string> = action.split(':') || []
+
+        const action_name:string = action_props?.shift()?.replace('v_', '').toUpperCase() ?? ''
+        const action_activation_mode = action_props?.shift() ?? ''
+
+        tElements.push(new fabric.Textbox(action_name, {
           fontFamily: 'Roboto',
           fontSize: 12,
           textAlign: 'left',
