@@ -50,3 +50,39 @@ export type Button = {
   actions: string[]|null,
   section: string
 }
+
+export type MongoButtonAction = {
+  name: string,
+  activationMode: string | null,
+  multiTap: number | null
+}
+
+export type MongoButton = {
+    name: string,
+    section: string,
+    actions: MongoButtonAction[] | never
+}
+
+export type MongoAppDevice = {
+  name: string,
+  prefix: string,
+  instance: number,
+  buttons: MongoButton[] | never,
+  canvas: any | null
+}
+
+export type MongoRebind = {
+  _input:string,
+  _activationMode:string|undefined,
+  _multiTap: number|undefined
+}
+
+export type MongoAction = {
+  rebind: MongoRebind[],
+  _name: string
+}
+
+export type MongoActionMap = {
+  action: MongoAction[],
+  _name: string
+}

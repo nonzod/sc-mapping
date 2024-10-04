@@ -2,18 +2,24 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: {
-    enabled: true,
+    enabled: process.env.NUXT_DEVTOOLS,
     timeline: {
       enabled: true
     }
   },
   css: ['~/public/css/main.css'],
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts', '@zadigetvoltaire/nuxt-gtm', '@nuxt/image', '@vee-validate/nuxt', 'nuxt-file-storage', 'nuxt-auth-utils', 'nuxt-nodemailer', '@nuxtjs/turnstile', '@nuxtjs/seo'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts', '@zadigetvoltaire/nuxt-gtm', '@nuxt/image', '@vee-validate/nuxt', 'nuxt-file-storage', 'nuxt-auth-utils', 'nuxt-nodemailer', '@nuxtjs/turnstile', '@nuxtjs/seo', 'nuxt-mongoose'],
   site: {
     url: process.env.DOMAIN,
     name: 'SC Mappigs Tool',
     description: 'Tool for creating layout visualizations',
     defaultLocale: 'en', // not needed if you have @nuxtjs/i18n installed
+  },
+  mongoose: {
+    uri: process.env.MONGODB_URI,
+    options: {},
+    modelsDir: 'models',
+    devtools: process.env.NUXT_DEVTOOLS,
   },
   tailwindcss: {
     configPath: 'tailwind.config',
@@ -47,7 +53,7 @@ export default defineNuxtConfig({
     enableRouterSync: true, // Pass the router instance of your app to automatically sync with router (optional)
     ignoredViews: [''], // Don't trigger events for specified router names (optional)
     trackOnNextTick: false, // Whether or not call trackView in Vue.nextTick
-    devtools: true, // (optional)
+    devtools: process.env.NUXT_DEVTOOLS, // (optional)
   },
   nodemailer: {
     from: '',
