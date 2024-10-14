@@ -53,13 +53,13 @@ export type Button = {
 
 export type MongoButtonAction = {
   name: string,
+  section: string,
   activationMode: string | null,
   multiTap: number | null
 }
 
 export type MongoButton = {
     name: string,
-    section: string,
     actions: MongoButtonAction[] | never
 }
 

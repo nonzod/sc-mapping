@@ -1,6 +1,6 @@
 import { XMLParser } from "fast-xml-parser"
 import { readFileSync } from 'fs';
-import { MongoAction, MongoAppDevice, MongoButton } from "~/server/utils/types";
+import { MongoAction, MongoAppDevice, MongoButton, MongoButtonAction } from "~/server/utils/types";
 
 export async function xmlToMongo(filepath: string, user:any) {
   const force_array = ['action', 'rebind', 'keyboard', 'mouse', 'joystick', 'gamepad'] // proprietà forzate come array in fase di conversione da XML a JSON (altrimenti non viene convertito in array se c'è un solo valore)
@@ -98,21 +98,26 @@ export async function xmlToMongo(filepath: string, user:any) {
           
           b.app_device_entry[adIndex].buttons.push({
             name: rebind_button,
-            section: am._name,
             actions: []
           })
 
           // Ricercadi un button precedentemente creato in base a nome e section 
           const bIndex = b.app_device_entry[adIndex].buttons.findIndex((obj: MongoButton) => {
-            return obj.name == rebind_button && obj.section == am._name
+            return obj.name == rebind_button
           })
-          // Aggiungo le action al button con indice bIndex
-          b.app_device_entry[adIndex].buttons[bIndex].actions = []
+
+          // Aggiungo le action al button con indice bIndex && obj.section == am._name
+          if(!b.app_device_entry[adIndex].buttons[bIndex]) {
+            b.app_device_entry[adIndex].buttons[bIndex].actions = []
+          } 
+            
           b.app_device_entry[adIndex].buttons[bIndex].actions.push({
             name: a._name,
+            section: am._name,
             activationMode: r._activationMode || null,
             multiTap: r._multiTap || null
           })
+          
         })
       })
     })

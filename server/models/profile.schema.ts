@@ -41,9 +41,9 @@ export const modelProfile = defineMongooseModel('Profile', {
     instance: { type: Number },
     buttons: [{
       name: { type: String },
-      section: { type: String },
       actions: [{
         name: { type: String },
+        section: { type: String },
         activationMode: { type: String },
         multiTap: { type: Number }
       }]
