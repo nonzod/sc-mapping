@@ -1,15 +1,10 @@
-import { profile as ProfileTable } from '~/db/schema'
-import { eq } from "drizzle-orm";
-
 export default defineEventHandler(async (event) => {
   try {
     const { user } = await requireUserSession(event)
+    
+    const res = await modelProfile.find({ authorId: user.id }, {}, { limit: 25 }).exec()
 
-    return useDrizzle()
-      .select()
-      .from(ProfileTable)
-      .where(eq(ProfileTable.user_id, user.id))
-      .all()
+    return res
   } catch (e: any) {
     throw createError({
       statusCode: 400,

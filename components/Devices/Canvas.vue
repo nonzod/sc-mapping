@@ -93,7 +93,7 @@
 import * as fabric from 'fabric';
 import { Field, Form, ErrorMessage } from 'vee-validate';
 
-const props = defineProps(['items', 'device', 'user_id'])
+const props = defineProps(['device', 'user_id'])
 const canvas: any = ref({})
 const modal_id = `grid-settings-modal-${props.device.id}`
 const canvas_grid = props.device.canvas_grid ? JSON.parse(props.device.canvas_grid) : {}
@@ -143,7 +143,7 @@ const submitForm = function (values: any) {
 
 const canSave = function () {
   const global_store: any = useGlobalStore()
-  console.log(global_store.value.loggedIn)
+
   if (global_store.value.loggedIn) {
     if (global_store.value.user.id == props.user_id) {
       return true
@@ -197,8 +197,8 @@ async function initCanvas(noCache: boolean = false) {
     }
 
     // Filtra elementi per prefix
-    const filtered = props.items.filter((item: any) => item.device == props.device.prefix)
-    filtered.forEach((el: any) => {
+    //const filtered = props.items.filter((item: any) => item.device == props.device.prefix)
+    props.device.buttons.forEach((el: any) => {
       var cElements: Array<any> = []
       var tElements: Array<any> = []
 
@@ -214,11 +214,11 @@ async function initCanvas(noCache: boolean = false) {
       const top = getTop()
       const left = getLeft()
       // Testo bottone
-      cElements.push(new fabric.Textbox(el.button.toUpperCase(), {
+      cElements.push(new fabric.Textbox(el.name.toUpperCase(), {
         fontFamily: 'Roboto',
         fontSize: 12,
         fontWeight: 'bold',
-        fill: buttonColor(el.button, el.device),
+        fill: buttonColor(el.name, props.device.prefix),
         width: gridObj.value.cellW - 20,
         lineHeight: 2,
         textAlign: 'center',
@@ -230,13 +230,9 @@ async function initCanvas(noCache: boolean = false) {
 
       // Lista action nel button @todo da rifare
       var i = 1
-      var formatted_actions:Array<FormattedActionMap> = []
 
-      el.action.split(',').forEach((action: string) => {
-        var action_props:Array<string> = action.split(':') || []
-
-        const action_name:string = action_props?.shift()?.replace('v_', '').toUpperCase() ?? ''
-        const action_activation_mode = action_props?.shift() ?? ''
+      el.actions.forEach((action: any) => {
+        const action_name:string = action.name.replace('v_', '').toUpperCase() ?? ''
 
         tElements.push(new fabric.Textbox(action_name, {
           fontFamily: 'Roboto',

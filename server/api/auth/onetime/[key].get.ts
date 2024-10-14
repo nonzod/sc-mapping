@@ -1,17 +1,24 @@
-import { user as UserTable } from '~/db/schema'
-import { eq, and } from 'drizzle-orm'
-import { UserSession } from '#auth-utils';
-
 export default defineEventHandler(async (event) => {
   const onetime_key: string = event.context.params?.key as string;
 
-  const res_user: any = useDrizzle()
+  /*const res_user: any = useDrizzle()
     .select()
     .from(UserTable)
     .where(and(eq(UserTable.one_time_token, onetime_key), eq(UserTable.status, 'pending')))
-    .all().shift()
+    .all().shift()*/
 
-  if (res_user) {
+  const mongoUser = await modelUser.updateOne({ $and: [{ one_time_token: onetime_key }, { status: 'pending' }] }, { status: 'active' })
+
+  if (mongoUser.modifiedCount == 0) {
+    throw createError({
+      statusCode: 401,
+      statusMessage: 'Key is not valid!',
+    })
+  }
+
+  return mongoUser
+
+  /*if (mongoUser) {
     return await useDrizzle()
       .update(UserTable)
       .set({
@@ -23,5 +30,5 @@ export default defineEventHandler(async (event) => {
       statusCode: 401,
       statusMessage: 'Key is not valid!',
     })
-  }
+  }*/
 })

@@ -9,7 +9,6 @@ export default defineEventHandler(async (event) => {
     const vtt = await verifyTurnstileToken(token)
 
     if (vtt.success != true) {
-      console.log(vtt)
       throw createError({
         statusCode: 401,
         statusMessage: 'Invalid Token'
@@ -17,13 +16,15 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  const user_exists = useDrizzle()
+  /*const user_exists = useDrizzle()
     .select({ count: count() })
     .from(UserTable)
     .where(or(eq(UserTable.username, username), eq(UserTable.email, email)))
-    .all().shift()
+    .all().shift()*/
 
-  if (user_exists?.count && user_exists?.count > 0) {
+  const mongoUser = await modelUser.findOne({ $or: [ { username: username }, { email: email } ] }) // null se non lo trova
+
+  if (mongoUser !== null) {
     throw createError({
       statusCode: 401,
       statusMessage: 'E-Mail or Username already in use'
@@ -33,7 +34,7 @@ export default defineEventHandler(async (event) => {
 
   try {
     if (process.env.SAVE_NEW_USERS != 'false') {
-      await useDrizzle()
+      /*await useDrizzle()
         .insert(UserTable)
         .values({
           username: username,
@@ -44,7 +45,19 @@ export default defineEventHandler(async (event) => {
           consent: "{ privacy: true }",
           one_time_token: onetime,
           created: Date.now()
-        }).execute()
+        }).execute()*/
+
+      // Salvataggio su MongoDB
+      await new modelUser({
+        username: username,
+        password: password,
+        email: email,
+        role: "authenticated",
+        status: "pending",
+        consent: "{ privacy: true }",
+        one_time_token: onetime,
+        created: Date.now()
+      }).save()
     }
 
     // Send mail @todo da spostare su modulo template

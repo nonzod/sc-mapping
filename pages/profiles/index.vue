@@ -28,19 +28,19 @@
       </thead>
       <tbody>
         <tr class="with-hover hover:cursor-pointer" v-for="profile in profiles">
-          <th scope="row" @click="navigateTo({path: `/bindings/${profile.uuid}`})">
-            {{ profile.name }}
+          <th scope="row" @click="navigateTo({path: `/bindings/${profile._id}`})">
+            {{ profile._profileName }}
           </th>
-          <th scope="row" @click="navigateTo({path: `/bindings/${profile.uuid}`})">
-            {{ profile.username }}
+          <th scope="row" @click="navigateTo({path: `/bindings/${profile._id}`})">
+            {{ profile.authorId.username }}
           </th>
-          <td scope="row" @click="navigateTo({path: `/profiles/${profile.uuid}`})">
+          <td scope="row" @click="navigateTo({path: `/profiles/${profile._id}`})">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
               <path stroke="#057A55" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
             </svg>
           </td>
           <td>
-            <NuxtLink :to="`/api/files/${profile.uuid}`" target="_blank" class="text-xs text-green-800" download
+            <NuxtLink :to="`/api/files/${profile._id}`" target="_blank" class="text-xs text-green-800" download
               external>
               <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                 width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -49,7 +49,7 @@
               </svg>
             </NuxtLink>
           </td>
-          <td @click="deleteProfile(profile.uuid)" v-if="is_admin">
+          <td @click="deleteProfile(profile._id)" v-if="is_admin">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
               width="24" height="24" fill="none" viewBox="0 0 24 24">
               <path stroke="#E02424" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

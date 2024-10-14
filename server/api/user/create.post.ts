@@ -12,8 +12,16 @@ export default defineEventHandler(async (event) => {
 
   const { email, username, password } = await readBody<{ email: string, username: string, password: string }>(event)
 
+  const mongoUser = await modelUser.findOne({ $or: [{ username: username }, { email: email }] }) // null se non lo trova
+  if (mongoUser !== null) {
+    throw createError({
+      statusCode: 401,
+      statusMessage: 'E-Mail or Username already in use'
+    });
+  }
+
   try {
-    const res_user = await useDrizzle()
+    /*const res_user = await useDrizzle()
       .insert(UserTable)
       .values({
         username: username,
@@ -21,7 +29,18 @@ export default defineEventHandler(async (event) => {
         email: email,
         role: "authenticated",
         consent: "{}"
-      }).execute()
+      }).execute()*/
+
+    await new modelUser({
+      username: username,
+      password: password,
+      email: email,
+      role: "authenticated",
+      status: "active",
+      consent: "{ privacy: true }",
+      one_time_token: '',
+      created: Date.now()
+    }).save()
 
   } catch (res_user: any) {
     setResponseStatus(event, 500, res_user?.message)

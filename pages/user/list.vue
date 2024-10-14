@@ -26,7 +26,7 @@
         <tr v-for="user in users">
           <th scope="row"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            {{ user.id }}
+            {{ user._id }}
           </th>
           <th scope="row"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">

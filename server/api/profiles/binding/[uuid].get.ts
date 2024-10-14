@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
   try {
     const profile_uuid = event.context.params?.uuid as string;
 
-    const actionmapResp = useDrizzle()
+    /*const actionmapResp = useDrizzle()
       .select({
         id: ActionMapTable.id,
         profile: ActionMapTable.profile,
@@ -17,8 +17,11 @@ export default defineEventHandler(async (event) => {
       .from(ActionMapTable)
       .where(eq(ActionMapTable.profile, profile_uuid))
       .groupBy(ActionMapTable.button, ActionMapTable.device)
-      .orderBy(ActionMapTable.device, ActionMapTable.button)
-    return actionmapResp;
+      .orderBy(ActionMapTable.device, ActionMapTable.button)*/
+      const profile = await modelProfile.findById(profile_uuid)
+
+      return profile
+    
   } catch (e: any) {
     throw createError({
       statusCode: 400,

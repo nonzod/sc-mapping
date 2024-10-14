@@ -1,5 +1,3 @@
-import { actionmap as ActionMapTable, profile as ProfileTable, device as DeviceTable } from '~/db/schema'
-import { eq, and } from "drizzle-orm";
 import { rmSync } from 'fs'
 
 export default defineEventHandler(async (event) => {
@@ -7,51 +5,26 @@ export default defineEventHandler(async (event) => {
 
   try {
     const profile_uuid = event.context.params?.uuid as string;
-    var res_profile
+    var res
 
     if (user.role == 'admin') { // Admin elimina tutto
-      res_profile = useDrizzle()
-        .select()
-        .from(ProfileTable)
-        .where(eq(ProfileTable.uuid, profile_uuid))
-        .all().shift()
+      res = await modelProfile.deleteOne({ _id: profile_uuid })
     } else {
-      res_profile = useDrizzle()
-        .select()
-        .from(ProfileTable)
-        .where(and(eq(ProfileTable.uuid, profile_uuid), eq(ProfileTable.user_id, user.id)))
-        .all().shift()
+      res = await modelProfile.deleteOne({ $and: [{ _id: profile_uuid }, { authorId: user.id }] })
     }
 
-    if (res_profile) {
-      useDrizzle()
-        .delete(ActionMapTable)
-        .where(eq(ActionMapTable.profile, profile_uuid))
-        .run()
-
-      useDrizzle()
-        .delete(DeviceTable)
-        .where(eq(DeviceTable.profile, profile_uuid))
-        .run()
-
-      useDrizzle()
-        .delete(ProfileTable)
-        .where(eq(ProfileTable.uuid, profile_uuid))
-        .run()
-
-      rmSync(`${process.cwd()}/${process.env.PATH_XML}/${res_profile?.filepath}`)
-
-      return {
-        profile: res_profile?.name,
-        uuid: res_profile?.uuid
-      }
+    if(res.deletedCount == 1) {
+      //rmSync(`${process.cwd()}/${process.env.PATH_XML}/${res?.filepath}`)
     } else {
       return createError({
         statusCode: 401,
-        statusMessage: 'You can only delete your own profiles!'
+        statusMessage: 'Cannot delete profile!'
       });
     }
 
+    return {
+      id: profile_uuid
+    }
   } catch (e: any) {
     throw createError({
       statusCode: 400,

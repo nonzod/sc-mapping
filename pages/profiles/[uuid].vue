@@ -2,10 +2,10 @@
   <div class="p-6 space-y-6">
     <div class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
       <ul>
-        <li>Nome: {{ profile?.name }}</li>
-        <li>User: {{ profile?.user_id }}</li>
-        <li>Type: {{ profile?.device_type }}</li>
-        <li>UUID: {{ profile?.uuid }}</li>
+        <li>Nome: {{ profile?._profileName }}</li>
+        <li>User: {{ profile?.authorId.username }}</li>
+        <li>Version: {{ profile?._version }}</li>
+        <li>ID: {{ profile?._id }}</li>
       </ul>
     </div>
     <div class="text-base leading-relaxed text-gray-500 dark:text-gray-400" v-for="device in devices">

@@ -4,13 +4,6 @@
     Loading ...
   </div>
   <div v-else>
-    <div class="sm:hidden">
-      <select id="tabs" @change="changeTab($event?.target?.value)"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        <option v-for="(device, idx) in devices" :value="idx">{{ device.type }} {{ device.instance }}</option>
-      </select>
-    </div>
-
     <div class="m-auto w-fit">
       <div class="inline-flex rounded-md shadow-sm" role="group">
         <button @click="navigateTo(`/bindings/${route.params.uuid}/Generic`)" type="button"
@@ -43,28 +36,29 @@
         <li class="me-2" v-for="(device, idx) in devices">
           <a href="#"
             class="inline-block p-4 border-b-2 hover:no-underline border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
-            @click="changeTab(idx)">{{ device.type }} {{ device.instance }}</a>
+            @click="changeTab(idx)">{{ device.name }} {{ device.instance }}</a>
         </li>
       </ul>
     </div>
 
 
     <div class="flex">
-      <component :is="DeviceType" :items="items" :device="device" :user_id="profile?.user_id" :key="device.id" />
+      <component :is="DeviceType" :device="device" :user_id="profile?.authorId" :key="device._id" />
     </div>
   </div>
 </template>
 <script setup lang="ts">
 const route = useRoute()
 const device = ref({})
-const { data: profile } = await useFetch(`/api/profiles/${route.params.uuid}`)
-const { data: items, status } = await useFetch(`/api/profiles/binding/${route.params.uuid}`)
-const { data: devices } = await useFetch(`/api/profiles/device/${route.params.uuid}`, {
+//const { data: profile } = await useFetch(`/api/profiles/${route.params.uuid}`)
+const { data: profile, status } = await useFetch(`/api/profiles/binding/${route.params.uuid}`)
+/*const { data: devices } = await useFetch(`/api/profiles/device/${route.params.uuid}`, {
   watch: [device]
-})
+})*/
+const devices = profile?.value.appDevice
+device.value = profile?.value.appDevice[0]
 const device_type = ref('Generic')
 
-device_type.value = profile?.value?.device_type
 if (route.params.layout) {
   device_type.value = route.params.layout
 }
@@ -75,11 +69,11 @@ const DeviceType = defineAsyncComponent(() =>
 
 function changeTab(idx: number) {
   device.value = 0 // trigger fetch
-  device.value = devices.value ? devices.value[idx] : {}
+  device.value = profile?.value.appDevice ? profile?.value.appDevice[idx] : {}
 }
 
 onMounted(() => {
-  device.value = devices.value ? devices.value[0] : {}
+  device.value = profile?.value.appDevice ? profile?.value.appDevice[0] : {}
 
   // Track layout
   if (profile.value) {

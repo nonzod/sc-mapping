@@ -18,6 +18,7 @@ export async function xmlToMongo(filepath: string, user:any) {
 
   const appDeviceBase = await crateAppDevice(json)
   appDeviceBase.profile.appDevice = createAppDeviceEntry(appDeviceBase)
+  appDeviceBase.profile.authorId = user.id
   await appDeviceBase.profile.save()
 
   /**

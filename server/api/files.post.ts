@@ -38,6 +38,6 @@ export default defineEventHandler(async (event) => {
   )
 
   //@todo da riscrivere decente
-  await xmlToMongo(`${objpath.mount}/${basepath}${ufile}`,  user)
-  return xmlToSqlite(`${objpath.mount}/${basepath}${ufile}`, `${basepath}${ufile}`, user)
+  return await xmlToMongo(`${objpath.mount}/${basepath}${ufile}`,  user)
+  //return xmlToSqlite(`${objpath.mount}/${basepath}${ufile}`, `${basepath}${ufile}`, user)
 })

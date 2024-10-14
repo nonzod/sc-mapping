@@ -1,6 +1,8 @@
 import { defineMongooseModel } from '#nuxt/mongoose'
+import { Types } from 'mongoose'
 var timesRun = 0;
 export const modelProfile = defineMongooseModel('Profile', {
+  authorId: { type: Types.ObjectId, ref: modelUser },
   CustomisationUIHeader: {
     devices: {
       keyboard: [{ _instance: { type: Number } }],
@@ -60,9 +62,9 @@ export const modelProfile = defineMongooseModel('Profile', {
 }, {
 
 }, (schema) => {
-  schema.post('save', function(doc, next) {
+  /*schema.post('save', function(doc, next) {
     timesRun += 1;
     console.log("IN CALLBACK", timesRun);
     next();
-  });
+  });*/
 })
