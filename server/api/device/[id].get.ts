@@ -2,6 +2,8 @@ import { device as DeviceTable } from '~/db/schema'
 import { eq } from "drizzle-orm";
 
 /**
+ * @deprecated
+ * 
  * Select Device by id
  * 
  * GET device/[id] 

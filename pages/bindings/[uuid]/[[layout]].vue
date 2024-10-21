@@ -51,7 +51,7 @@
 const route = useRoute()
 const device = ref({})
 //const { data: profile } = await useFetch(`/api/profiles/${route.params.uuid}`)
-const { data: profile, status } = await useFetch(`/api/profiles/binding/${route.params.uuid}`)
+const { data: profile, status } = await useFetch(`/api/profiles/${route.params.uuid}`)
 /*const { data: devices } = await useFetch(`/api/profiles/device/${route.params.uuid}`, {
   watch: [device]
 })*/

@@ -2,6 +2,8 @@ import { device as DeviceTable, profile as ProfileTable } from '~/db/schema'
 import { eq, and } from "drizzle-orm";
 
 /**
+ * @deprecated
+ * 
  * Update Device by Id ** auth required **
  *  
  * POST device/[id] 

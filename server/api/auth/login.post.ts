@@ -1,17 +1,12 @@
-import { user as UserTable } from '~/db/schema'
-import { eq, and } from 'drizzle-orm'
 import { UserSession } from '#auth-utils';
 
+/**
+ * POST /api/auth/login
+ * 
+ * Effettua il login
+ */
 export default defineEventHandler(async (event) => {
   const { username, password } = await readBody<{ username: string, password: string }>(event)
-
-  /*const res_user: any = useDrizzle()
-    .select()
-    .from(UserTable)
-    .where(and(eq(UserTable.username, username), eq(UserTable.password, password), eq(UserTable.status, 'active')))
-    .all()
-    .shift()*/
-
   const mongoUser = await modelUser.findOne({ $and: [ { username: username }, { password: password }, { status: 'active' } ] }) // null se non lo trova
 
   if (mongoUser) {

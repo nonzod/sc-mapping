@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
     }
 
     if(res.deletedCount == 1) {
-      //rmSync(`${process.cwd()}/${process.env.PATH_XML}/${res?.filepath}`)
+      rmSync(`${process.cwd()}/${process.env.PATH_XML}/${res?.filePath}`)
     } else {
       return createError({
         statusCode: 401,

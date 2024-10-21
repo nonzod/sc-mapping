@@ -1,6 +1,9 @@
 import { profile as ProfileTable } from '~/db/schema'
 import { count, sql } from 'drizzle-orm';
 
+/**
+ * @deprecated inutile con mongo
+ */
 export default defineEventHandler(async (event) => {
   
   try {

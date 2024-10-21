@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
     
     const res = await modelProfile.find({ authorId: user.id }, {}, { limit: 25 }).exec()
 
-    return res
+    return { profiles: res, count: res.length }
   } catch (e: any) {
     throw createError({
       statusCode: 400,

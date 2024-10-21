@@ -3,6 +3,7 @@ import { Types } from 'mongoose'
 var timesRun = 0;
 export const modelProfile = defineMongooseModel('Profile', {
   authorId: { type: Types.ObjectId, ref: modelUser },
+  filePath: { type: String },
   CustomisationUIHeader: {
     devices: {
       keyboard: [{ _instance: { type: Number } }],

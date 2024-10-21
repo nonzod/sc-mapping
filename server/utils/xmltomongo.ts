@@ -3,6 +3,7 @@ import { readFileSync } from 'fs';
 import { MongoAction, MongoAppDevice, MongoButton, MongoButtonAction } from "~/server/utils/types";
 
 export async function xmlToMongo(filepath: string, user:any) {
+  
   const force_array = ['action', 'rebind', 'keyboard', 'mouse', 'joystick', 'gamepad'] // proprietà forzate come array in fase di conversione da XML a JSON (altrimenti non viene convertito in array se c'è un solo valore)
   const options: any = {
     ignoreAttributes: false,
@@ -13,12 +14,13 @@ export async function xmlToMongo(filepath: string, user:any) {
     }
   }
   const parser = new XMLParser(options);
-  const xmlFile = readFileSync(filepath);
+  const xmlFile = readFileSync(`${process.env.PATH_XML}/${filepath}`);
   const json = parser.parse(xmlFile);
 
   const appDeviceBase = await crateAppDevice(json)
   appDeviceBase.profile.appDevice = createAppDeviceEntry(appDeviceBase)
   appDeviceBase.profile.authorId = user.id
+  appDeviceBase.profile.filePath = filepath
   await appDeviceBase.profile.save()
 
   /**

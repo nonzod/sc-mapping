@@ -13,10 +13,6 @@
           <th scope="col" :class="{ active: activeFilter === 'action' }">
             Action
           </th>
-          <th scope="col" :class="{ active: activeFilter === 'section' }" class="hover:cursor-pointer"
-            @click="sortBy('section')">
-            Section
-          </th>
         </tr>
       </thead>
       <tbody :key="activeFilter">
@@ -30,9 +26,6 @@
               <span class="badge badge-purple ml-2" v-if="action.activationMode"> {{ action.activationMode }}</span>
               <span class="badge badge-pink ml-2" v-if="action.multiTap"> multitap: {{ action.multiTap }}</span>
             </div>
-          </td>
-          <td class="hover:text-green-400">
-            {{ button.section }}
           </td>
         </tr>
       </tbody>
@@ -69,5 +62,5 @@ function compare(a: Button, b: Button) {
   return a[activeFilter.value].localeCompare(b[activeFilter.value]);
 }
 
-type Filters = "name" | "section"
+type Filters = "name"
 </script>

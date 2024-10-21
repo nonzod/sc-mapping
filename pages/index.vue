@@ -50,9 +50,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="with-hover hover:cursor-pointer" v-for="profile in profiles">
+        <tr class="with-hover hover:cursor-pointer" v-for="profile in res.profiles">
           <th scope="row" @click="goToBindings(profile._id)">
-            {{ profile.name }}
+            {{ profile._profileName }}
           </th>
           <th scope="row" @click="goToDetails(profile._id)">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -114,21 +114,22 @@ const page = ref(1)
 const global_store: any = useGlobalStore()
 const appConfig = useAppConfig()
 
-const currentPage: string = function (idx: number): string {
+const currentPage: string|null = function(idx: number): string|null {
   if (idx == page.value) {
     return 'bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white'
   }
 
-  return ''
+  return null
 }
+
 /**
  * 
  */
-const { data: res_count } = await useFetch('/api/profiles/count')
-const { data: profiles } = await useFetch('/api/profiles/my', {
+//const { data: res_count } = await useFetch('/api/profiles/count')
+const { data: res } = await useFetch('/api/profiles/my', {
   watch: [alert_message]
 })
-const count: number = res_count.value?.count || 1
+const count= res.value?.count || 1
 const pages = count > appConfig.itemPerPage ? Math.floor(count / appConfig.itemPerPage) : 1
 
 
@@ -156,12 +157,10 @@ const deleteProfile = async (uuid: string) => {
 
 const goToBindings = (uuid: string) => {
   return navigateTo({path: `/bindings/${uuid}`})
-  //router.push({ name: 'bindings-uuid', params: { uuid: uuid } })
 }
 
 const goToDetails = (uuid: string) => {
   return navigateTo({path: `/profiles/${uuid}`})
-  //router.push({ name: 'profiles-uuid', params: { uuid: uuid } })
 }
 
 const goToPage = (idx: number) => {

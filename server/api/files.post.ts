@@ -1,32 +1,7 @@
-import { existsSync, mkdirSync } from 'fs';
-
 export default defineEventHandler(async (event) => {
   const { user } = await requireUserSession(event)
   const { files, device_type } = await readBody<{ files: File[], device_type: string }>(event)
-
-  // Questa roba è da migliorare...
-  const today = new Date()
-  const objpath: any = {
-    mount: process.env.PATH_XML,
-    year: today.getFullYear(),
-    month: today.getMonth(),
-    day: today.getDate()
-  }
-
-  if (!existsSync(objpath.mount)) {
-    mkdirSync(objpath.mount)
-  }
-  if (!existsSync(`${objpath.mount}/${objpath.year}`)) {
-    mkdirSync(`${objpath.mount}/${objpath.year}`)
-  }
-  if (!existsSync(`${objpath.mount}/${objpath.year}/${objpath.month}`)) {
-    mkdirSync(`${objpath.mount}/${objpath.year}/${objpath.month}`)
-  }
-  if (!existsSync(`${objpath.mount}/${objpath.year}/${objpath.month}/${objpath.day}`)) {
-    mkdirSync(`${objpath.mount}/${objpath.year}/${objpath.month}/${objpath.day}`)
-  }
-
-  const basepath: string = `${objpath.year}/${objpath.month}/${objpath.day}/`
+  const basepath: string = getProfileFilePath()
   // --
 
   // Solo un file viene considerato
@@ -38,6 +13,6 @@ export default defineEventHandler(async (event) => {
   )
 
   //@todo da riscrivere decente
-  return await xmlToMongo(`${objpath.mount}/${basepath}${ufile}`,  user)
+  return await xmlToMongo(`${basepath}${ufile}`,  user)
   //return xmlToSqlite(`${objpath.mount}/${basepath}${ufile}`, `${basepath}${ufile}`, user)
 })
