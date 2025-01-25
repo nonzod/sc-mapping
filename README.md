@@ -3,10 +3,12 @@
 Personalizza e rinomina env in .env
 
 TODO:
- * Implementazione canvas, al momento [Fabric.js](http://fabricjs.com/)
+ * ~~Implementazione canvas, al momento [Fabric.js](http://fabricjs.com/)~~
  * Gestire la visualizzazione degli errori quando non va  buon fine qualcosa nelle API
  * ~~Gestione account utente [link](https://github.com/atinux/nuxt-auth-utils)~~
  * Verifica quella cacata di gtag e consent
+ * Implementazione Share Your Mapping
+ * Salvataggio canvas su MongoDB
 
 Compiled with node v22.9.0
 

@@ -50,7 +50,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="with-hover hover:cursor-pointer" v-for="profile in res.profiles">
+        <tr class="with-hover hover:cursor-pointer" v-for="profile in res?.profiles">
           <th scope="row" @click="goToBindings(profile._id)">
             {{ profile._profileName }}
           </th>

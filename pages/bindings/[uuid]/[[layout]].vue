@@ -43,20 +43,21 @@
 
 
     <div class="flex">
-      <component :is="DeviceType" :device="device" :user_id="profile?.authorId" :key="device._id" />
+      <component :is="DeviceType" :device="device" :user_id="profile?.authorId._id" :key="device._id" />
     </div>
   </div>
 </template>
 <script setup lang="ts">
 const route = useRoute()
 const device = ref({})
-//const { data: profile } = await useFetch(`/api/profiles/${route.params.uuid}`)
-const { data: profile, status } = await useFetch(`/api/profiles/${route.params.uuid}`)
-/*const { data: devices } = await useFetch(`/api/profiles/device/${route.params.uuid}`, {
+
+const { data: profile, status } = await useFetch(`/api/profiles/${route.params.uuid}`, {
   watch: [device]
-})*/
-const devices = profile?.value.appDevice
-device.value = profile?.value.appDevice[0]
+})
+
+const devices = profile?.value?.appDevice
+device.value = profile?.value?.appDevice[0]
+
 const device_type = ref('Generic')
 
 if (route.params.layout) {
@@ -69,11 +70,11 @@ const DeviceType = defineAsyncComponent(() =>
 
 function changeTab(idx: number) {
   device.value = 0 // trigger fetch
-  device.value = profile?.value.appDevice ? profile?.value.appDevice[idx] : {}
+  device.value = profile?.value?.appDevice ? profile?.value.appDevice[idx] : {}
 }
 
 onMounted(() => {
-  device.value = profile?.value.appDevice ? profile?.value.appDevice[0] : {}
+  device.value = profile?.value?.appDevice ? profile?.value.appDevice[0] : {}
 
   // Track layout
   if (profile.value) {
